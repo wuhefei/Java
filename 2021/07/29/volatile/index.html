@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="https://demo.theme-kaze.top/img/Kaze.png">
-  <title>Hello World</title>
+  <title>Volatile关键字</title>
   
     
       <meta 
         property="og:title" 
-        content="Hello World">
+        content="Volatile关键字">
     
     
       <meta 
         property="og:url" 
-        content="https://wuhefei.github.io/Java/2021/07/29/hello-world/index.html">
+        content="https://wuhefei.github.io/Java/2021/07/29/volatile/index.html">
     
     
       <meta 
@@ -260,11 +260,11 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Hello World
+      Volatile关键字
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2021-07-29T06:46:49.599Z">
+    <time datetime="2021-07-29T08:57:20.255Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
@@ -274,7 +274,7 @@
     
     
       <span class="dot"></span>
-      <span>75 字</span>
+      <span>762 字</span>
     
   </div>
   
@@ -282,19 +282,20 @@
   <div 
     id="section" 
     class="post-content">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <h3 id="Volatile关键字"><a href="#Volatile关键字" class="headerlink" title="Volatile关键字"></a><strong>Volatile关键字</strong></h3><p>所有的final修饰的字段都是编译期常量吗?      ====不是====</p>
+<pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="comment">//编译期常量</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> J = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] a = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">    <span class="comment">//非编译期常量</span></span><br><span class="line">    Random r = <span class="keyword">new</span> Random();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> k = r.nextInt();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>//k的值由随机数对象决定，所以不是所有的final修饰的字段都是编译期常量，只是k的值在被初始化后无法被更改<br>如何理解private所修饰的方法是隐式的final?<br>private 方法是隐式的final<br>final方法是可以被重载的<br>说说final类型的类如何拓展? 比如String是final类型，我们想写个MyString复用所有String中方法，同时增加一个新的toMyString()的方法，应该如何做? </p>
+<pre class="highlight"><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@adminwhf</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyString</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String innerString;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...init &amp; other methods</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 支持老的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> innerString.length(); <span class="comment">// 通过innerString调用老的方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加新方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toMyString</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>final方法可以被重载吗? 可以<br>父类的final方法能不能够被子类重写? 不可以<br>说说final域重排序规则? </p>
+<pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalDemo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> a;  <span class="comment">//普通域</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> b; <span class="comment">//final域</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> FinalDemo finalDemo;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FinalDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        a = <span class="number">1</span>; <span class="comment">// 1. 写普通域</span></span><br><span class="line">        b = <span class="number">2</span>; <span class="comment">// 2. 写final域</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        finalDemo = <span class="keyword">new</span> FinalDemo();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FinalDemo demo = finalDemo; <span class="comment">// 3.读对象引用</span></span><br><span class="line">        <span class="keyword">int</span> a = demo.a;    <span class="comment">//4.读普通域</span></span><br><span class="line">        <span class="keyword">int</span> b = demo.b;    <span class="comment">//5.读final域</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//假设线程A在执行writer方法 线程B在执行reader方法</span></span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+<p>写final域的重排序规则禁止对final域的写重排序到构造函数之外，这个规则的实现主要包含了两个方面：<br>JMM禁止编译器把final域的写重排序到构造函数之外；<br>编译器会在final域写之后，构造函数return之前，插入一个storestore屏障。这个屏障可以禁止处理器把final域的写重排序到构造函数之外。<br>我们再来分析writer方法，虽然只有一行代码，但实际上做了两件事情：<br>构造了一个FinalDemo对象；<br>把这个对象赋值给成员变量finalDemo。</p>
+<p>读final域重排序规则为：在一个线程中，初次读对象引用和初次读该对象包含的final域，JMM会禁止这两个操作的重排序。(注意，这个规则仅仅是针对处理器)，处理器会在读final域操作的前面插入一个LoadLoad屏障。实际上，读对象的引用和读该对象的final域存在间接依赖性，一般处理器不会重排序这两个操作。但是有一些处理器会重排序，因此，这条禁止重排序规则就是针对这些处理器而设定的。<br>read()方法主要包含了三个操作：<br>初次读引用变量finalDemo;<br>初次读引用变量finalDemo的普通域a;<br>初次读引用变量finalDemo的final与b;</p>
+<p>说说final的原理?<br>使用 final 的限制条件和局限性?<br>看本文最后的一个思考题</p>
 
   </div>
   <div>
@@ -307,15 +308,15 @@
             target="_blank" 
             rel="nofollow noopener noreferrer" 
             href="/Java/about">
-            theme-kaze
+            Sirchw
           </a>
         </p>
         <p>
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="https://wuhefei.github.io/Java/2021/07/29/hello-world/">
-            https://wuhefei.github.io/Java/2021/07/29/hello-world/
+            href="https://wuhefei.github.io/Java/2021/07/29/volatile/">
+            https://wuhefei.github.io/Java/2021/07/29/volatile/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -325,6 +326,34 @@
 </article>
 <div class="nav">
   
+    <div class="nav-item-prev">
+      <a 
+        href="/Java/2021/07/29/JAVA%E9%94%81/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">java锁 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/Java/2021/07/29/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">java多线程 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
   
 </div>
 
@@ -337,7 +366,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Volatile%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">Volatile关键字</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -356,7 +385,7 @@
   <a 
     class="author-posts-count" 
     href="/Java/archives">
-    <span>1</span>
+    <span>3</span>
     <span>文章</span>
   </a>
   <a 
@@ -385,7 +414,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Volatile%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">Volatile关键字</span></a></li></ol>
       </div>
     </article>
   
@@ -432,7 +461,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Volatile%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">Volatile关键字</span></a></li></ol>
     </article>
   
   
@@ -448,7 +477,17 @@
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2021-07-29</div>
-        <a href="/Java/2021/07/29/hello-world/"><div class="recent-posts-item-content">Hello World</div></a>
+        <a href="/Java/2021/07/29/JAVA%E9%94%81/"><div class="recent-posts-item-content">java锁</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-29</div>
+        <a href="/Java/2021/07/29/volatile/"><div class="recent-posts-item-content">Volatile关键字</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-29</div>
+        <a href="/Java/2021/07/29/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><div class="recent-posts-item-content">java多线程</div></a>
       </div>
     
   </div>

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="Hexo">
+  <link 
+    rel="icon" 
+    href="https://demo.theme-kaze.top/img/Kaze.png">
+  <title>java多线程</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="java多线程">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://wuhefei.github.io/Java/2021/07/29/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://demo.theme-kaze.top/img/Kaze.png">
+    
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2021-07-29">
+      <meta 
+        property="og:article:modified_time" 
+        content="2021-07-29">
+      <meta 
+        property="og:article:author" 
+        content="theme-kaze">
+      
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/Java/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/Java/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="https://demo.theme-kaze.top/img/Kaze.png" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">theme-kaze demo</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/Java/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/Java/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/Java/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/Java/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/Java/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/Java/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      java多线程
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-07-29T06:46:49.599Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2021-07-29</span>
+    </time>
+    
+    
+      <span class="dot"></span>
+      <span>2k 字</span>
+    
+  </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h3 id="JAVA多线程"><a href="#JAVA多线程" class="headerlink" title="JAVA多线程"></a><strong>JAVA多线程</strong></h3><p><a target="_blank" rel="noopener" href="https://github.com/wuhefei/wuhefei.github.io/blob/main/JUC/volatile.md">JUC  volatile关键字</a></p>
+<h1 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a><strong>上下文切换</strong></h1><p>上下文切换是非常耗效率的。</p>
+<p>采用无锁编程，比如将数据按照 Hash(id) 进行取模分段，每个线程处理各自分段的数据，从而避免使用锁。</p>
+<p>采用 CAS(compare and swap) 算法，如 Atomic 包就是采用 CAS 算法。</p>
+<p>合理的创建线程，避免创建了一些线程但其中大部分都是处于 waiting 状态，因为每当从 waiting 状态切换到 running 状态都是一次上下文切换。</p>
+<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a><strong>死锁</strong></h1><p>死锁的场景一般是：线程 A 和线程 B 都在互相等待对方释放锁，或者是其中某个线程在释放锁的时候出现异常如死循环之类的。这时就会导致系统不re可用。</p>
+<p>常用的解决方案如下：</p>
+<p>尽量一个线程只获取一个锁。</p>
+<p>一个线程只占用一个资源。</p>
+<p>尝试使用定时锁，至少能保证锁最终会被释放。</p>
+<p>  2.1 专门的算法，原则</p>
+<p>  2.2 尽量避免减少同步资源的定义</p>
+<p>  2.3 尽量避免嵌套同步。</p>
+<h1 id="资源限制"><a href="#资源限制" class="headerlink" title="资源限制"></a><strong>资源限制</strong></h1><p>当在带宽有限的情况下一个线程下载某个资源需要 1M/S,当开 10 个线程时速度并不会乘 10 倍，反而还会增加时间，毕竟上下文切换比较耗时。</p>
+<p>如果是受限于资源的话可以采用集群来处理任务，不同的机器来处理不同的数据，就类似于开始提到的无锁编程。</p>
+<p>Java 内存模型</p>
+<p>volatile</p>
+<ol>
+<li>保持可见性</li>
+<li>保持有序性</li>
+<li>不能保证原子性</li>
+</ol>
+<p>Sychronized 互斥锁</p>
+<p>锁对象： 非静态 this ，静态Class 括号Object</p>
+<p>预防死锁</p>
+<p>互斥：不能破坏</p>
+<p>占有且等待：同时申请所有资源</p>
+<p>不可抢占：sychronized 解决不了 lock可以解决</p>
+<p>循环等待：给资源设置id 字段，每次都是按顺寻申请锁的</p>
+<p>等待通知机制</p>
+<p>wait notify notifyAll</p>
+<p>线程的性能指标</p>
+<p>延迟</p>
+<p>吞吐量</p>
+<p>最佳线程数</p>
+<p>CPU密集型 ：线程数=CPU+1</p>
+<p>IO密集型 ：（IO耗时/CPU耗时+1）*CPU核数</p>
+<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="RackMultipart20210728-4-1tzx3pv_html_138208abfe3575c9.png" class="lozad post-image"src="RackMultipart20210728-4-1tzx3pv_html_138208abfe3575c9.png"></p>
+<p>JDK 并发包</p>
+<p><strong>Lock</strong>** ： **<strong>Lock unlock</strong></p>
+<p>互斥锁,和sychrnized 一样的功能，里面能保证可见性</p>
+<p><strong>Condition</strong>** ： **** await <strong><strong>，</strong></strong> signal**</p>
+<p>条件：相比于sychronized的Object.wait Condition可以实现多条件唤醒机制。</p>
+<p><strong>Semaphore</strong>  <strong>：</strong>** acquire **** ， **<strong>release</strong></p>
+<p>信号量：可以用来实现多个线程访问一个临界区,如实现对象池设计中的限流器</p>
+<p><strong>ReadWriteLock</strong>  <strong>：</strong>** readLock writeLock**</p>
+<p>写锁，读锁：允许多线程读，一个线程写，写锁持有时所有读锁和写锁都阻塞（写锁的获取要等所有读写锁释放）</p>
+<p>适用于读多写少的场景</p>
+<p><strong>StampedLock</strong>** ： **<strong>tryOptimisticRead validate</strong></p>
+<p>写锁，读锁 （分悲观读锁，乐观读锁）</p>
+<p><strong>线程同步</strong></p>
+<p>CountDownLatch 一个线程等待多个线程</p>
+<ol>
+<li>初始化 –&amp;gt; countDown（减1） –&amp;gt; await（等待为0）</li>
+</ol>
+<p>CycliBarrier：一组线程之间的相互等待</p>
+<ol>
+<li>初始化 –&amp;gt; 设置回调函数（为0时执行，并返回原始值） –&amp;gt;  await（减1并等待 为0）</li>
+</ol>
+<p><strong>并发容器</strong></p>
+<p>List：</p>
+<p><strong>CopyOnWriteArrayList</strong>** ：适用于写少的场景，要容忍可能的读不一致**</p>
+<p><strong>Map</strong>** ：**</p>
+<p><strong>ConcurrentHashMap:</strong>** 分段锁**</p>
+<p><strong>ConcurrentSkipListMap</strong>  <strong>：跳表</strong></p>
+<p><strong>Set</strong>** ：**</p>
+<p><strong>CopyOnWirteArryset</strong>** ：同上**</p>
+<p><strong>CopyCurrentSkipListSet</strong>** ：同上**</p>
+<p><strong>Queue</strong>** ：**</p>
+<p><strong>分类：阻塞</strong>** Blocking **** 单端 <strong><strong>Queue</strong>  <strong>双端</strong></strong> Queue**</p>
+<p><strong>单端阻塞（</strong>** BlockingQueue **<strong>）</strong> ：Array～、Linked～、Sychronized～、LinkedTransfer～、Priority～、Delay～</p>
+<p><strong>双端阻塞（</strong>** BlockingDeque **<strong>）</strong> ：Linked～</p>
+<p><strong>单端非阻塞（</strong>** Queue **<strong>）</strong> ：ConcurrentLinked～</p>
+<p><strong>双端非阻塞（</strong>** Deque **<strong>）</strong> ：ConcurrentLinked～</p>
+<p><strong>原子类</strong></p>
+<p>无锁方案原理：增加了硬件支持。即CPU的CAS指令</p>
+<p>AbA问题：有解决AbA问题需求的时候，增加一个递增的版本号纬度化解。</p>
+<p>循环时间开销大：自旋CAS如果长时间不成功，会给CPU带来非常大的执行开销。如果JVM能支持处理器提供的pause指令那么效率会有一定的提升，pause指令有两个作用，第一它可以延迟流水线执行指令（de-pipeline）,使CPU不会消耗过多的执行资源，延迟的时间取决于具体实现的版本，在一些处理器上延迟时间是零。第二它可以避免在退出循环的时候因内存顺序冲突（memory order violation）而引起CPU流水线被清空（CPU pipeline flush），从而提高CPU的执行效率。</p>
+<p>只能保证一个共享变量的原子操作：把多个变量放到一个变量中</p>
+<p>分类：原子化基本数据类型，原子化引用类型，原子化数组，原子化对象属性更新器，原子化累加器</p>
+<p>Future：cancel ，isCanceled isDone，get</p>
+<p>FutureTask ： 实现了呢哇runnable接口和Future接口</p>
+<p><strong>强大的工具类</strong></p>
+<p>CompletableFuture :一个强大的异步编程工具类（任务之间有聚合功能）</p>
+<p>CompletionService：批量并行任务</p>
+<p>在不同的进程当中</p>
+<p>分布式锁</p>
+<p>基于数据库的锁</p>
+<p>可以创建一张表，其中的某个字段设置成为唯一索引，当多个请求过来的时候之哦于心间记录成功的请求才算获取到锁，当使用完毕删除这条记录的时候即可释放锁</p>
+<p>存在的问题：</p>
+<p>数据单点问题，挂了怎么办？</p>
+<p>不是重入锁，同一进程中无法释放锁之前再次添加锁，因为数据库中也已经存了一条记录了</p>
+<p>锁是非阻塞的 一旦insert 失败则会立即返回，并不会进入阻塞队列只能下一次再次获取</p>
+<p>锁没有失效时间，如果那个进程解锁失败那就没有请求可以再次获取锁了</p>
+<p>解决方案：</p>
+<p>数据库切换主从，不存在单点情况</p>
+<p>在表中添加一个同步状态字段，每次获取锁时 +1 释放锁的时 -1 当状态为0的时候就删除这条记录，即释放锁</p>
+<p>非阻塞的情况可以用while循环来实现，循环的时候记录时间，达到X秒记为超时，break</p>
+<p>可以开启一个定时任务每隔一段时间扫描找出多少X秒都没有被删除的记录，主动删除这条记录</p>
+<p>基于redis</p>
+<p>使setNX(key) setEX(timeout)命令，只有在该key不存在的时候创建整个key ，就相当于获取了锁，由于有超时时间，所以过了规定时间会自动删除，这样也可以避免死锁。</p>
+<p>基于zookeeper</p>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a><strong>线程池</strong></h1><p>设计原理</p>
+<p>用生产者消费者模型，线程池是消费者，调用这是生产者</p>
+<p>线程池对象里维护一个阻塞队列，一个已经跑起来的工作线程组 ThreadsList</p>
+<pre class="highlight"><span class="line">package com.sirchw;</span><br><span class="line"></span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.concurrent.BlockingQueue;</span><br><span class="line">import java.util.concurrent.LinkedBlockingQueue;</span><br><span class="line"></span><br><span class="line">public class MyThreadPool &#123;</span><br><span class="line">    BlockingQueue&lt;Runnable&gt; workQueue;</span><br><span class="line">    List&lt;workerThread&gt; threads = new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    MyThreadPool(int poolsize,BlockingQueue&lt;Runnable&gt; workQueue)&#123;</span><br><span class="line">        this.workQueue=workQueue;</span><br><span class="line">        for (int idx=0;idx&lt;poolsize;idx++)&#123;</span><br><span class="line">            workerThread work = new workerThread();</span><br><span class="line">            work.start();</span><br><span class="line">            threads.add(work);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void execute(Runnable command) throws InterruptedException &#123;</span><br><span class="line">        workQueue.put(command);</span><br><span class="line">    &#125;</span><br><span class="line">    class workerThread extends Thread&#123;</span><br><span class="line">        public void run()&#123;</span><br><span class="line">            while(true)&#123;</span><br><span class="line">                Runnable task= null;</span><br><span class="line">                try &#123;</span><br><span class="line">                    task = workQueue.take();</span><br><span class="line">                &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                task.run();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+
+<p>线程资源必须通过线程池提供，不允许在应用中自行显式创建线程</p>
+<p>避免 可能造成的系统创建大量同类线程而导致消耗完内存或者过度切换的问题。</p>
+<pre class="highlight"><span class="line">Executors.newCachedThreadPool():无限线程池</span><br><span class="line">Executors.newFixedThreadPool() :创建固定大小的线程池</span><br><span class="line">Executors.newSingleThreadExecutor()：创建单个线程的线程池</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public static ExecutorService newCachedThreadPool()&#123;</span><br><span class="line">    return new ThreadPoolExecutor(0,Integer.MAX_VALUE,60L,TimeUnit.SECONDS,new SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//实际上还是利用ThreadPoolExecutor实现的</span><br><span class="line">//先来看看创建线程  api</span><br><span class="line">ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue, RejectedExecutionHandler handler) </span><br><span class="line">//corePoolSize 线程池的基本大小</span><br><span class="line">//maximumPoolSize 线程池最大线程大小</span><br><span class="line">//keepAliveTime 和 unit 则是线程空闲后的存活时间</span><br><span class="line">//workQueue 用于存放任务的阻塞队列。</span><br><span class="line">//handler 当队列和最大线程池都满了之后的饱和策略。</span><br></pre>
+
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/Java/about">
+            Sirchw
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://wuhefei.github.io/Java/2021/07/29/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+            https://wuhefei.github.io/Java/2021/07/29/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/Java/2021/07/29/volatile/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">Volatile关键字 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-text">JAVA多线程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-text">上下文切换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-text">资源限制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-text">线程池</span></a>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://demo.theme-kaze.top/img/Kaze.png" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">theme-kaze</p>
+<p class="author-description">designed by theme-kaze</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/Java/archives">
+    <span>3</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/Java/categories">
+    <span>0</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/Java/tags">
+    <span>0</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-text">JAVA多线程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-text">上下文切换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-text">资源限制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-text">线程池</span></a>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-text">JAVA多线程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-text">上下文切换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-text">资源限制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-text">线程池</span></a>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-29</div>
+        <a href="/Java/2021/07/29/JAVA%E9%94%81/"><div class="recent-posts-item-content">java锁</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-29</div>
+        <a href="/Java/2021/07/29/volatile/"><div class="recent-posts-item-content">Volatile关键字</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-29</div>
+        <a href="/Java/2021/07/29/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><div class="recent-posts-item-content">java多线程</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020 -
+          
+          2021
+        </span>
+        &nbsp;
+        <a 
+          href="/Java/" 
+          class="footer-link">
+          theme-kaze demo
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/Java/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/Java/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/Java/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+  </body>
+</html>
