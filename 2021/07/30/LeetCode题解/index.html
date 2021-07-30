@@ -45,7 +45,7 @@
         content="2021-07-30">
       <meta 
         property="og:article:modified_time" 
-        content="2021-07-30">
+        content="2021-07-31">
       <meta 
         property="og:article:author" 
         content="theme-kaze">
@@ -283,26 +283,26 @@
     id="section" 
     class="post-content">
     <h1 id="LeetCode题解"><a href="#LeetCode题解" class="headerlink" title="LeetCode题解"></a>LeetCode题解</h1><p>给你一个有序数组 <code>nums</code> ，请你原地删除重复出现的元素，使每个元素 <strong>只出现一次</strong> ，返回删除后数组的新长度。不要使用额外的数组空间，使用O(1)额外空间的条件下完成</p>
-<p><code>输入：nums = [1,1,2] 输出：2, nums = [1,2] 解释：函数应该返回新的长度 2 ，并且原数组 nums 的前两个元素被修改为 1, 2 。不需要考虑数组中超出新长度后面的元素。</code></p>
+<p><code>输入：nums = [1,1,2]</code><br><code>输出：2, nums = [1,2]</code><br><code>解释：函数应该返回新的长度 2 ，并且原数组 nums 的前两个元素被修改为 1, 2 。不需要考虑数组中超出新长度后面的元素。</code></p>
 <h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>利用数组是有序的特点，可以知道重复的元素肯定是相邻的，所以考虑使用双指针 一个a指向最后一个不重复的数，一个指向后面待判断的值</p>
 <p>如果相等，q 后移 1 位</p>
 <p>如果不相等，将 q 位置的元素复制到 p+1 位置上，p 后移一位，q 后移 1 位</p>
 <p>重复上述过程，直到 q 等于数组长度。返回 p + 1，即为新数组长度。</p>
-<p><code> public int removeDuplicates(int[] nums) &#123;     if(nums == null || nums.length == 0) return 0;     int p = 0;     int q = 1;     while(q &lt; nums.length)&#123;         if(nums[p] != nums[q])&#123;             nums[p + 1] = nums[q];             p++;         &#125;         q++;     &#125;     return p + 1; &#125;</code></p>
+<p><code>public int removeDuplicates(int[] nums) &#123;</code><br>    <code>if(nums == null || nums.length == 0) return 0;</code><br>    <code>int p = 0;</code><br>    <code>int q = 1;</code><br>    <code>while(q &lt; nums.length)&#123;</code><br>        <code>if(nums[p] != nums[q])&#123;</code><br>            <code>nums[p + 1] = nums[q];</code><br>            <code>p++;</code><br>        <code>&#125;</code><br>        <code>q++;</code><br>    <code>&#125;</code><br>    <code>return p + 1;</code><br><code>&#125;</code></p>
 <p><strong>复杂度分析：</strong></p>
 <p>时间复杂度：O(n)<em>O</em>(<em>n</em>)。<br>空间复杂度：O(1)<em>O</em>(1)。</p>
 <p><strong>优化：</strong></p>
 <p>此时数组中没有重复元素，按照上面的方法，每次比较时 nums[p] 都不等于 nums[q]，因此就会将 q 指向的元素原地复制一遍，这个操作其实是不必要的。</p>
 <p>因此我们可以添加一个小判断，当 q - p &gt; 1 时，才进行复制。</p>
-<p><code>public int removeDuplicates(int[] nums) &#123;     if(nums == null || nums.length == 0) return 0;     int p = 0;     int q = 1;     while(q &lt; nums.length)&#123;         if(nums[p] != nums[q])&#123;             if(q - p &gt; 1)&#123;                 nums[p + 1] = nums[q];             &#125;             p++;         &#125;         q++;     &#125;     return p + 1; &#125;</code></p>
+<p><code>public int removeDuplicates(int[] nums) &#123;</code><br>    <code>if(nums == null || nums.length == 0) return 0;</code><br>    <code>int p = 0;</code><br>    <code>int q = 1;</code><br>    <code>while(q &lt; nums.length)&#123;</code><br>        <code>if(nums[p] != nums[q])&#123;</code><br>            <code>if(q - p &gt; 1)&#123;</code><br>                <code>nums[p + 1] = nums[q];</code><br>            <code>&#125;</code><br>            <code>p++;</code><br>        <code>&#125;</code><br>        <code>q++;</code><br>    <code>&#125;</code><br>    <code>return p + 1;</code><br><code>&#125;</code></p>
 <h4 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h4><p>我们令 k=1，假设有样例：[3,3,3,3,4,4,4,5,5,5]</p>
 <p>设定变量 idx，指向待插入位置。idx 初始值为 0，目标数组为 []</p>
 <p>首先我们先让第 1 位直接保留（性质 1）。idx 变为 1，目标数组为 [3]</p>
 <p>继续往后遍历，能够保留的前提是与 idx 的前面 1 位元素不同（性质 2），因此我们会跳过剩余的 3，将第一个 4 追加进去。idx 变为 2，目标数组为 [3,4]</p>
 <p>继续这个过程，跳过剩余的 4，将第一个 5 追加进去。idx 变为 3，目标数组为 [3,4,5]</p>
 <p>当整个数组被扫描完，最终我们得到了目标数组 [3,4,5] 和 答案 idx 为 3。</p>
-<p><code>class Solution &#123;     public int removeDuplicates(int[] nums) &#123;         int n = nums.length;         if (n &lt;= 1) return n;            return process(nums, 1, nums[n - 1]);     &#125;</code></p>
-<p><code>//做一个剪枝的操作  因为原数组和最后得到的数组最后的那个数肯定是一样的     int process(int[] nums, int k, int max) &#123;         int idx = 0;          for (int x : nums) &#123;             if (idx &lt; k || nums[idx - k] != x) nums[idx++] = x;             if (idx - k &gt;= 0 &amp;&amp; nums[idx - k] == max) break;         &#125;         return idx;     &#125; &#125;</code></p>
+<p><code>class Solution &#123;</code><br>    <code>public int removeDuplicates(int[] nums) &#123;</code><br>        <code>int n = nums.length;</code><br>        <code>if (n &lt;= 1) return n;            return process(nums, 1, nums[n - 1]);</code><br>    <code>&#125;</code></p>
+<p><code>//做一个剪枝的操作  因为原数组和最后得到的数组最后的那个数肯定是一样的</code><br>    <code>int process(int[] nums, int k, int max) &#123;</code><br>        <code>int idx = 0;</code><br>        <code>for (int x : nums) &#123;</code><br>            <code>if (idx &lt; k || nums[idx - k] != x) nums[idx++] = x;</code><br>            <code>if (idx - k &gt;= 0 &amp;&amp; nums[idx - k] == max) break;</code><br>        <code>&#125;</code><br>        <code>return idx;</code><br>    <code>&#125;</code><br><code>&#125;</code></p>
 
   </div>
   <div>
