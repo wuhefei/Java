@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="成长记录">
+  <link 
+    rel="icon" 
+    href="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png">
+  <title>theme-kaze demo</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="theme-kaze demo">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://wuhefei.github.io/Java/2021/07/31/JCM%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="成长记录">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2021-07-31">
+      <meta 
+        property="og:article:modified_time" 
+        content="2021-07-31">
+      <meta 
+        property="og:article:author" 
+        content="theme-kaze">
+      
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/Java/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/Java/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">theme-kaze demo</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/Java/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/Java/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/Java/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/Java/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/Java/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/Java/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-07-31T05:41:37.977Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2021-07-31</span>
+    </time>
+    
+    
+      <span class="dot"></span>
+      <span>1.9k 字</span>
+    
+  </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h2 id="堆大小设置"><a href="#堆大小设置" class="headerlink" title="堆大小设置"></a>堆大小设置</h2><p>VM 中最大堆大小有三方面限制：相关操作系统的数据模型（32-bt还是64-bit）限制；系统的可用虚拟内存限制；系统的可用物理内存限制。32位系统下，一般限制在1.5G~2G；64为操作系统对内存无限制。</p>
+<h4 id="典型设置分析1"><a href="#典型设置分析1" class="headerlink" title="典型设置分析1"></a>典型设置分析1</h4><blockquote>
+<p>java -Xmx3550m -Xms3550m -Xmn2g -Xss128k</p>
+</blockquote>
+<p><strong>-Xmx3550m</strong>：设置JVM最大可用堆内存为3550M。<br><strong>-Xms3550m</strong>：设置JVM初始堆内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。<br><strong>-Xmn2g</strong>：设置年轻代大小为2G。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。整个JVM内存大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。<br><strong>-Xss128k</strong>：设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。</p>
+<h4 id="典型设置分析2"><a href="#典型设置分析2" class="headerlink" title="典型设置分析2"></a>典型设置分析2</h4><blockquote>
+<p>java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0</p>
+</blockquote>
+<p><strong>-XX:NewRatio=4</strong>:设置年轻代（包括Eden和两个Survivor区）与年老代的比值（除去持久代）。设置为4，则年轻代与年老代所占比值为1：4，年轻代占整个堆栈的1/5<br><strong>-XX:SurvivorRatio=4</strong>：设置年轻代中Eden区与Survivor区的大小比值。设置为4，则两个Survivor区与一个Eden区的比值为2:4，一个Survivor区占整个年轻代的1/6<br><strong>-XX:MaxPermSize=16m</strong>:设置持久代大小为16m。实质上就是方法区的大小。<br><strong>-XX:MaxTenuringThreshold=0</strong>：设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象在年轻代的存活时间，增加在年轻代被回收的概论。</p>
+<h2 id="辅助信息"><a href="#辅助信息" class="headerlink" title="辅助信息"></a>辅助信息</h2><p>JVM提供了大量命令行参数，打印信息，供调试使用。主要有以下一些：</p>
+<h4 id="XX-PrintGC"><a href="#XX-PrintGC" class="headerlink" title="-XX:+PrintGC"></a>-XX:+PrintGC</h4><p>输出形式：</p>
+<pre class="highlight"><span class="line">[GC 118250K-&gt;113543K(130112K), 0.0094143 secs][Full GC 121376K-&gt;10414K(130112K), 0.0650971 secs]</span><br></pre>
+
+<h4 id="XX-PrintGCDetails"><a href="#XX-PrintGCDetails" class="headerlink" title="-XX:+PrintGCDetails"></a>-XX:+PrintGCDetails</h4><p>输出形式：</p>
+<pre class="highlight"><span class="line">[GC [DefNew: 8614K-&gt;781K(9088K), 0.0123035 secs] 118250K-&gt;113543K(130112K), 0.0124633 secs][GC [DefNew: 8614K-&gt;8614K(9088K), 0.0000665 secs][Tenured: 112761K-&gt;10414K(121024K), 0.0433488 secs] 121376K-&gt;10414K(130112K), 0.0436268 secs]</span><br></pre>
+
+<p>-XX:+PrintGCTimeStamps -XX:+PrintGC：PrintGCTimeStamps可与上面两个混合使用<br>输出形式：</p>
+<pre class="highlight"><span class="line">11.851: [GC 98328K-&gt;93620K(130112K), 0.0082960 secs]</span><br></pre>
+
+<p><strong>-XX:+PrintGCApplicationConcurrentTime</strong><br>打印每次垃圾回收前，程序未中断的执行时间。可与上面混合使用<br>输出形式：</p>
+<pre class="highlight"><span class="line">Application time: 0.5291524 seconds</span><br></pre>
+
+<p><strong>-XX:+PrintGCApplicationStoppedTime</strong><br>打印垃圾回收期间程序暂停的时间。可与上面混合使用<br>输出形式：</p>
+<pre class="highlight"><span class="line">Total time for which application threads were stopped: 0.0468229 seconds</span><br></pre>
+
+<p><strong>-XX:PrintHeapAtGC</strong><br>打印GC前后的详细堆栈信息<br>输出形式：</p>
+<pre class="highlight"><span class="line">34.702: [GC &#123;Heap before gc invocations=7: def new generation   total 55296K, used 52568K [0x1ebd0000, 0x227d0000, 0x227d0000)eden space 49152K,  99% used [0x1ebd0000, 0x21bce430, 0x21bd0000)from space 6144K,  55% used [0x221d0000, 0x22527e10, 0x227d0000)  to   space 6144K,   0% used [0x21bd0000, 0x21bd0000, 0x221d0000) tenured generation   total 69632K, used 2696K [0x227d0000, 0x26bd0000, 0x26bd0000)the space 69632K,   3% used [0x227d0000, 0x22a720f8, 0x22a72200, 0x26bd0000) compacting perm gen  total 8192K, used 2898K [0x26bd0000, 0x273d0000, 0x2abd0000)   the space 8192K,  35% used [0x26bd0000, 0x26ea4ba8, 0x26ea4c00, 0x273d0000)    ro space 8192K,  66% used [0x2abd0000, 0x2b12bcc0, 0x2b12be00, 0x2b3d0000)    rw space 12288K,  46% used [0x2b3d0000, 0x2b972060, 0x2b972200, 0x2bfd0000)34.735: [DefNew: 52568K-&gt;3433K(55296K), 0.0072126 secs] 55264K-&gt;6615K(124928K)Heap after gc invocations=8: def new generation   total 55296K, used 3433K [0x1ebd0000, 0x227d0000, 0x227d0000)eden space 49152K,   0% used [0x1ebd0000, 0x1ebd0000, 0x21bd0000)  from space 6144K,  55% used [0x21bd0000, 0x21f2a5e8, 0x221d0000)  to   space 6144K,   0% used [0x221d0000, 0x221d0000, 0x227d0000) tenured generation   total 69632K, used 3182K [0x227d0000, 0x26bd0000, 0x26bd0000)the space 69632K,   4% used [0x227d0000, 0x22aeb958, 0x22aeba00, 0x26bd0000) compacting perm gen  total 8192K, used 2898K [0x26bd0000, 0x273d0000, 0x2abd0000)   the space 8192K,  35% used [0x26bd0000, 0x26ea4ba8, 0x26ea4c00, 0x273d0000)    ro space 8192K,  66% used [0x2abd0000, 0x2b12bcc0, 0x2b12be00, 0x2b3d0000)    rw space 12288K,  46% used [0x2b3d0000, 0x2b972060, 0x2b972200, 0x2bfd0000)&#125;, 0.0757599 secs]</span><br></pre>
+
+<h2 id="常见配置汇总"><a href="#常见配置汇总" class="headerlink" title="常见配置汇总"></a>常见配置汇总</h2><h3 id="堆设置"><a href="#堆设置" class="headerlink" title="堆设置"></a>堆设置</h3><p>-Xms:初始堆大小<br>-Xmx:最大堆大小<br>-XX:NewSize=n:设置年轻代大小<br>-XX:NewRatio=n:设置年轻代和年老代的比值。如:为3，表示年轻代与年老代比值为1：3，年轻代占整个年轻代年老代和的1/4<br>-XX:SurvivorRatio=n:年轻代中Eden区与两个Survivor区的比值。注意Survivor区有两个。如：3，表示Eden：Survivor=3：2，一个Survivor区占整个年轻代的1/5<br>-XX:MaxPermSize=n:设置持久代大小</p>
+<h3 id="收集器设置"><a href="#收集器设置" class="headerlink" title="收集器设置"></a>收集器设置</h3><p>-XX:+UseSerialGC:设置串行收集器<br>-XX:+UseParallelGC:设置并行收集器<br>-XX:+UseParalledlOldGC:设置并行年老代收集器<br>-XX:+UseConcMarkSweepGC:设置并发收集器</p>
+<h3 id="垃圾回收统计信息"><a href="#垃圾回收统计信息" class="headerlink" title="垃圾回收统计信息"></a>垃圾回收统计信息</h3><p>-XX:+PrintGC<br>-XX:+PrintGCDetails<br>-XX:+PrintGCTimeStamps<br>-Xloggc:filename</p>
+<h3 id="并行收集器设置"><a href="#并行收集器设置" class="headerlink" title="并行收集器设置"></a>并行收集器设置</h3><p>-XX:ParallelGCThreads=n:设置并行收集器收集时使用的CPU数。并行收集线程数。<br>-XX:MaxGCPauseMillis=n:设置并行收集最大暂停时间<br>-XX:GCTimeRatio=n:设置垃圾回收时间占程序运行时间的百分比。公式为1/(1+n)</p>
+<h3 id="并发收集器设置"><a href="#并发收集器设置" class="headerlink" title="并发收集器设置"></a>并发收集器设置</h3><p>-XX:+CMSIncrementalMode:设置为增量模式。适用于单CPU情况。<br>-XX:ParallelGCThreads=n:设置并发收集器年轻代收集方式为并行收集时，使用的CPU数。并行收集线程数。</p>
+<h2 id="调优总结"><a href="#调优总结" class="headerlink" title="调优总结"></a>调优总结</h2><h3 id="年轻代大小选择"><a href="#年轻代大小选择" class="headerlink" title="年轻代大小选择"></a>年轻代大小选择</h3><h4 id="响应时间优先的应用"><a href="#响应时间优先的应用" class="headerlink" title="响应时间优先的应用"></a>响应时间优先的应用</h4><p>尽可能设大，直到接近系统的最低响应时间限制（根据实际情况选择）。在此种情况下，年轻代收集发生的频率也是最小的。同时，减少到达年老代的对象。</p>
+<h4 id="吞吐量优先的应用"><a href="#吞吐量优先的应用" class="headerlink" title="吞吐量优先的应用"></a>吞吐量优先的应用</h4><p>尽可能的设置大，可能到达Gbit的程度。因为对响应时间没有要求，垃圾收集可以并行进行，一般适合8CPU以上的应用。</p>
+<h3 id="年老代大小选择"><a href="#年老代大小选择" class="headerlink" title="年老代大小选择"></a>年老代大小选择</h3><h4 id="响应时间优先的应用-1"><a href="#响应时间优先的应用-1" class="headerlink" title="响应时间优先的应用"></a>响应时间优先的应用</h4><p>年老代使用并发收集器，所以其大小需要小心设置，一般要考虑并发会话率和会话持续时间等一些参数。如果堆设置小了，可以会造成内存碎片、高回收频率以及应用暂停而使用传统的标记清除方式；如果堆大了，则需要较长的收集时间。最优化的方案，一般需要参考以下数据获得：</p>
+<blockquote>
+<p>并发垃圾收集信息<br>持久代并发收集次数<br>传统GC信息<br>花在年轻代和年老代回收上的时间比例</p>
+</blockquote>
+<p>减少年轻代和年老代花费的时间，一般会提高应用的效率</p>
+<h4 id="吞吐量优先的应用-1"><a href="#吞吐量优先的应用-1" class="headerlink" title="吞吐量优先的应用"></a>吞吐量优先的应用</h4><p>一般吞吐量优先的应用都有一个很大的年轻代和一个较小的年老代。原因是，这样可以尽可能回收掉大部分短期对象，减少中期的对象，而年老代尽存放长期存活对象。<br>较小堆引起的碎片问题<br>因为年老代的并发收集器使用标记、清除算法，所以不会对堆进行压缩。当收集器回收时，他会把相邻的空间进行合并，这样可以分配给较大的对象。但是，当堆空间较小时，运行一段时间以后，就会出现“碎片”，如果并发收集器找不到足够的空间，那么并发收集器将会停止，然后使用传统的标记、清除方式进行回收。如果出现“碎片”，可能需要进行如下配置：<br>-XX:+UseCMSCompactAtFullCollection：使用并发收集器时，开启对年老代的压缩。</p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/Java/about">
+            Sirchw
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://wuhefei.github.io/Java/2021/07/31/JCM%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/">
+            https://wuhefei.github.io/Java/2021/07/31/JCM%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/Java/2021/07/31/%E8%AE%B0%E5%BD%95%E7%AE%97%E6%B3%95%E7%AC%AC%E4%BA%8C%E5%A4%A9(%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C)/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">记录算法第一天(四数之和) </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE"><span class="toc-text">堆大小设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E8%AE%BE%E7%BD%AE%E5%88%86%E6%9E%901"><span class="toc-text">典型设置分析1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E8%AE%BE%E7%BD%AE%E5%88%86%E6%9E%902"><span class="toc-text">典型设置分析2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E4%BF%A1%E6%81%AF"><span class="toc-text">辅助信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XX-PrintGC"><span class="toc-text">-XX:+PrintGC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XX-PrintGCDetails"><span class="toc-text">-XX:+PrintGCDetails</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E6%B1%87%E6%80%BB"><span class="toc-text">常见配置汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E8%AE%BE%E7%BD%AE"><span class="toc-text">堆设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E9%9B%86%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">收集器设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF"><span class="toc-text">垃圾回收统计信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E6%94%B6%E9%9B%86%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">并行收集器设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E6%94%B6%E9%9B%86%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">并发收集器设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E4%BC%98%E6%80%BB%E7%BB%93"><span class="toc-text">调优总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B4%E8%BD%BB%E4%BB%A3%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9"><span class="toc-text">年轻代大小选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">响应时间优先的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E9%87%8F%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">吞吐量优先的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B4%E8%80%81%E4%BB%A3%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9"><span class="toc-text">年老代大小选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8-1"><span class="toc-text">响应时间优先的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E9%87%8F%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8-1"><span class="toc-text">吞吐量优先的应用</span></a></li></ol></li></ol></li></ol>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">theme-kaze</p>
+<p class="author-description">1+1=2</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/Java/archives">
+    <span>8</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/Java/categories">
+    <span>3</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/Java/tags">
+    <span>8</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE"><span class="toc-text">堆大小设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E8%AE%BE%E7%BD%AE%E5%88%86%E6%9E%901"><span class="toc-text">典型设置分析1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E8%AE%BE%E7%BD%AE%E5%88%86%E6%9E%902"><span class="toc-text">典型设置分析2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E4%BF%A1%E6%81%AF"><span class="toc-text">辅助信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XX-PrintGC"><span class="toc-text">-XX:+PrintGC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XX-PrintGCDetails"><span class="toc-text">-XX:+PrintGCDetails</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E6%B1%87%E6%80%BB"><span class="toc-text">常见配置汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E8%AE%BE%E7%BD%AE"><span class="toc-text">堆设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E9%9B%86%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">收集器设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF"><span class="toc-text">垃圾回收统计信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E6%94%B6%E9%9B%86%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">并行收集器设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E6%94%B6%E9%9B%86%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">并发收集器设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E4%BC%98%E6%80%BB%E7%BB%93"><span class="toc-text">调优总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B4%E8%BD%BB%E4%BB%A3%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9"><span class="toc-text">年轻代大小选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">响应时间优先的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E9%87%8F%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">吞吐量优先的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B4%E8%80%81%E4%BB%A3%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9"><span class="toc-text">年老代大小选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8-1"><span class="toc-text">响应时间优先的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E9%87%8F%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8-1"><span class="toc-text">吞吐量优先的应用</span></a></li></ol></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/Java/categories/%E7%BA%BF%E7%A8%8B/">
+        <div class="categories-list-item">
+          线程
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E7%AE%97%E6%B3%95/">
+        <div class="categories-list-item">
+          算法
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E9%9D%A2%E8%AF%95/">
+        <div class="categories-list-item">
+          面试
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/Java/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" 
+        title="双指针">
+        <div class="tags-list-item">双指针</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JUC/" 
+        title="JUC">
+        <div class="tags-list-item">JUC</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E7%BB%84/" 
+        title="数组">
+        <div class="tags-list-item">数组</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E7%AE%97%E6%B3%95/" 
+        title="算法">
+        <div class="tags-list-item">算法</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E9%9D%A2%E8%AF%95/" 
+        title="面试">
+        <div class="tags-list-item">面试</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81/" 
+        title="轻量级锁">
+        <div class="tags-list-item">轻量级锁</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/java%E9%94%81/" 
+        title="java锁">
+        <div class="tags-list-item">java锁</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" 
+        title="多线程">
+        <div class="tags-list-item">多线程</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE"><span class="toc-text">堆大小设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E8%AE%BE%E7%BD%AE%E5%88%86%E6%9E%901"><span class="toc-text">典型设置分析1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E8%AE%BE%E7%BD%AE%E5%88%86%E6%9E%902"><span class="toc-text">典型设置分析2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E4%BF%A1%E6%81%AF"><span class="toc-text">辅助信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XX-PrintGC"><span class="toc-text">-XX:+PrintGC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XX-PrintGCDetails"><span class="toc-text">-XX:+PrintGCDetails</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E6%B1%87%E6%80%BB"><span class="toc-text">常见配置汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E8%AE%BE%E7%BD%AE"><span class="toc-text">堆设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E9%9B%86%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">收集器设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF"><span class="toc-text">垃圾回收统计信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E6%94%B6%E9%9B%86%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">并行收集器设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E6%94%B6%E9%9B%86%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">并发收集器设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E4%BC%98%E6%80%BB%E7%BB%93"><span class="toc-text">调优总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B4%E8%BD%BB%E4%BB%A3%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9"><span class="toc-text">年轻代大小选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">响应时间优先的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E9%87%8F%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">吞吐量优先的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B4%E8%80%81%E4%BB%A3%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9"><span class="toc-text">年老代大小选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8-1"><span class="toc-text">响应时间优先的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E9%87%8F%E4%BC%98%E5%85%88%E7%9A%84%E5%BA%94%E7%94%A8-1"><span class="toc-text">吞吐量优先的应用</span></a></li></ol></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-31</div>
+        <a href="/Java/2021/07/31/JCM%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-31</div>
+        <a href="/Java/2021/07/31/%E8%AE%B0%E5%BD%95%E7%AE%97%E6%B3%95%E7%AC%AC%E4%BA%8C%E5%A4%A9(%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C)/"><div class="recent-posts-item-content">记录算法第一天(四数之和)</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-30</div>
+        <a href="/Java/2021/07/30/%E8%AE%B0%E5%BD%95%E7%AE%97%E6%B3%95%E7%AC%AC%E4%B8%80%E5%A4%A9(%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C)/"><div class="recent-posts-item-content">记录算法第一天(三数之和)</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-30</div>
+        <a href="/Java/2021/07/30/LeetCode%E9%A2%98%E8%A7%A3/"><div class="recent-posts-item-content">记录算法第一天(删除数组中重复的值并且返回数组最大个数)</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020 -
+          
+          2021
+        </span>
+        &nbsp;
+        <a 
+          href="/Java/" 
+          class="footer-link">
+          theme-kaze demo
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/Java/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/Java/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/Java/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+  </body>
+</html>
