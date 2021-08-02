@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="成长记录">
+  <link 
+    rel="icon" 
+    href="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png">
+  <title>数组和矩阵</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="数组和矩阵">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://wuhefei.github.io/Java/2020/05/30/%E6%95%B0%E7%BB%84%E5%92%8C%E7%9F%A9%E9%98%B5/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="成长记录">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2020-05-30">
+      <meta 
+        property="og:article:modified_time" 
+        content="2021-08-03">
+      <meta 
+        property="og:article:author" 
+        content="theme-kaze">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="数组">
+        
+          <meta 
+            property="og:article:tag" 
+            content="数据结构">
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/Java/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/Java/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">theme-kaze demo</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/Java/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/Java/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/Java/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/Java/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/Java/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/Java/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      数组和矩阵
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2020-05-30T04:17:15.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2020-05-30</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/Java/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" 
+          class="post-meta-link">
+          数据结构
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>2k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/Java/tags/%E6%95%B0%E7%BB%84/" 
+            class="post-meta-link">
+            数组
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/Java/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" 
+            class="post-meta-link">
+            数据结构
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <p><u>——————————————————————————————————————————-</u></p>
+<p>数组是一种连续存储线性结构 元素类型相同  大小相等 数组是多维的  通过使用整型索引值来访问他们的元素 数组的尺寸不能改变</p>
+<p>线性表-数组和矩阵</p>
+<p>​    知识点</p>
+<p>​    数组与矩阵相关题目</p>
+<p>数组的优点有：</p>
+<p>​    存取速度快</p>
+<p>数组的缺点有：</p>
+<p>​    事先必须知道数组的长度</p>
+<p>​    插入删除元素很慢</p>
+<p>​    空间通常是有限制的</p>
+<p>​    需要大块连续的内存块</p>
+<p>​    插入删除元素的效率很低</p>
+<pre class="highlight"><span class="line">把数组的指定数目<span class="number">0</span>移到后面去  </span><br><span class="line">``<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">moveZeroes</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;`</span><br><span class="line">    `<span class="keyword">int</span> idx = <span class="number">0</span>;`</span><br><span class="line">    `<span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;`</span><br><span class="line">        `<span class="keyword">if</span> (num != <span class="number">0</span>) &#123;`</span><br><span class="line">            `nums[idx++] = num;`</span><br><span class="line">        `&#125;`</span><br><span class="line">    `&#125;`</span><br><span class="line">    `<span class="keyword">while</span> (idx &lt; nums.length) &#123;`</span><br><span class="line">        `nums[idx++] = <span class="number">0</span>;`</span><br><span class="line">    `&#125;`</span><br><span class="line">`&#125;`</span><br></pre>
+
+<p>改变矩阵维度</p>
+<pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[][] matrixReshape(<span class="keyword">int</span>[][] nums, <span class="keyword">int</span> r, <span class="keyword">int</span> c) &#123;</span><br><span class="line">    <span class="keyword">int</span> m = nums.length, n = nums[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">if</span> (m * n != r * c) &#123;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span>[][] reshapedNums = <span class="keyword">new</span> <span class="keyword">int</span>[r][c];</span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; r; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; c; j++) &#123;</span><br><span class="line">            reshapedNums[i][j] = nums[index / n][index % n];</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> reshapedNums;</span><br><span class="line">&#125;</span><br></pre>
+
+<p><strong>找出数组中最长的连续 1</strong></p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findMaxConsecutiveOnes</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>, cur = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x : nums) &#123;</span><br><span class="line">        cur = x == <span class="number">0</span> ? <span class="number">0</span> : cur + <span class="number">1</span>;</span><br><span class="line">        max = Math.max(max, cur);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre>
+
+<p>著作权归<a target="_blank" rel="noopener" href="https://pdai.tech所有./">https://pdai.tech所有。</a> 链接：<a target="_blank" rel="noopener" href="https://www.pdai.tech/md/algorithm/alg-basic-array.html">https://www.pdai.tech/md/algorithm/alg-basic-array.html</a></p>
+<p><strong>有序矩阵查找</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/search-a-2d-matrix-ii/description/">240. Search a 2D Matrix II (Medium)  (opens new window)</a></p>
+<pre class="highlight"><span class="line">[</span><br><span class="line">   [ 1,  5,  9],</span><br><span class="line">   [10, 11, 13],</span><br><span class="line">   [12, 13, 15]</span><br><span class="line">]</span><br><span class="line">  </span><br><span class="line">        @pdai: 代码已经复制到剪贴板</span><br><span class="line">    </span><br></pre>
+
+
+
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">searchMatrix</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (matrix == <span class="keyword">null</span> || matrix.length == <span class="number">0</span> || matrix[<span class="number">0</span>].length == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.length, n = matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">int</span> row = <span class="number">0</span>, col = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (row &lt; m &amp;&amp; col &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (target == matrix[row][col]) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (target &lt; matrix[row][col]) col--;</span><br><span class="line">        <span class="keyword">else</span> row++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>有序矩阵的 Kth Element</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/">378. Kth Smallest Element in a Sorted Matrix ((Medium))  (opens new window)</a></p>
+<pre class="highlight"><span class="line">matrix = [</span><br><span class="line">  [ 1,  5,  9],</span><br><span class="line">  [10, 11, 13],</span><br><span class="line">  [12, 13, 15]</span><br><span class="line">],</span><br><span class="line">k = 8,</span><br><span class="line"></span><br><span class="line">return 13.</span><br><span class="line">  </span><br><span class="line">   </span><br><span class="line">    </span><br></pre>
+
+
+
+<p>解题参考: <a target="_blank" rel="noopener" href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/85173">Share my thoughts and Clean Java Code  (opens new window)</a></p>
+<p>二分查找解法:</p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.length, n = matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">int</span> lo = matrix[<span class="number">0</span>][<span class="number">0</span>], hi = matrix[m - <span class="number">1</span>][n - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">while</span> (lo &lt;= hi) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = lo + (hi - lo) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n &amp;&amp; matrix[i][j] &lt;= mid; j++) &#123;</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cnt &lt; k) lo = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> hi = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lo;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>数组相邻差值的个数</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/beautiful-arrangement-ii/description/">667. Beautiful Arrangement II (Medium)  (opens new window)</a></p>
+<pre class="highlight"><span class="line">Input: n = 3, k = 2</span><br><span class="line">Output: [1, 3, 2]</span><br><span class="line">Explanation: The [1, 3, 2] has three different positive integers ranging from 1 to 3, and the [2, 1] has exactly 2 distinct integers: 1 and 2.</span><br><span class="line">  </span><br><span class="line">       </span><br><span class="line">    </span><br></pre>
+
+<p>题目描述: 数组元素为 1~n 的整数，要求构建数组，使得相邻元素的差值不相同的个数为 k。</p>
+<p>让前 k+1 个元素构建出 k 个不相同的差值，序列为: 1 k+1 2 k 3 k-1 … k/2 k/2+1.</p>
+<pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] constructArray(<span class="keyword">int</span> n, <span class="keyword">int</span> k) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] ret = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    ret[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, interval = k; i &lt;= k; i++, interval--) &#123;</span><br><span class="line">        ret[i] = i % <span class="number">2</span> == <span class="number">1</span> ? ret[i - <span class="number">1</span>] + interval : ret[i - <span class="number">1</span>] - interval;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = k + <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        ret[i] = i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">    </span><br></pre>
+
+
+
+<p>堆解法:</p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.length, n = matrix[<span class="number">0</span>].length;</span><br><span class="line">    PriorityQueue&lt;Tuple&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;Tuple&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) pq.offer(<span class="keyword">new</span> Tuple(<span class="number">0</span>, j, matrix[<span class="number">0</span>][j]));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k - <span class="number">1</span>; i++) &#123; <span class="comment">// 小根堆，去掉 k - 1 个堆顶元素，此时堆顶元素就是第 k 的数</span></span><br><span class="line">        Tuple t = pq.poll();</span><br><span class="line">        <span class="keyword">if</span>(t.x == m - <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">        pq.offer(<span class="keyword">new</span> Tuple(t.x + <span class="number">1</span>, t.y, matrix[t.x + <span class="number">1</span>][t.y]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pq.poll().val;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuple</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Tuple</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x, y, val;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Tuple</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x; <span class="keyword">this</span>.y = y; <span class="keyword">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Tuple that)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.val - that.val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>一个数组元素在 [1, n] 之间，其中一个数被替换为另一个数，找出重复的数和丢失的数</strong></p>
+<p>[645. Set Mismatch (Easy)  (opens new window)</p>
+<pre class="highlight"><span class="line">Input: nums = [1,2,2,4]</span><br><span class="line">Output: [2,3]</span><br><span class="line"> </span><br><span class="line">    </span><br></pre>
+
+
+
+<p>最直接的方法是先对数组进行排序，这种方法时间复杂度为 O(NlogN)。本题可以以 O(N) 的时间复杂度、O(1) 空间复杂度来求解。</p>
+<p>主要思想是通过交换数组元素，使得数组上的元素在正确的位置上。</p>
+<pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] findErrorNums(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (nums[i] != i + <span class="number">1</span> &amp;&amp; nums[nums[i] - <span class="number">1</span>] != nums[i]) &#123;</span><br><span class="line">            swap(nums, i, nums[i] - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] != i + <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nums[i], i + <span class="number">1</span>&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = nums[i];</span><br><span class="line">    nums[i] = nums[j];</span><br><span class="line">    nums[j] = tmp;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre>
+
+
+
+<p>类似题目:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/description/">448. Find All Numbers Disappeared in an Array (Easy)  (opens new window)</a>，寻找所有丢失的元素</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-all-duplicates-in-an-array/description/">442. Find All Duplicates in an Array (Medium)  (opens new window)</a>，寻找所有重复的元素。</li>
+</ul>
+<p><strong>找出数组中重复的数，数组值在 [1, n] 之间</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-the-duplicate-number/description/">287. Find the Duplicate Number (Medium)  (opens new window)</a></p>
+<p>要求不能修改数组，也不能使用额外的空间。</p>
+<p>二分查找解法:</p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> l = <span class="number">1</span>, h = nums.length - <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">while</span> (l &lt;= h) &#123;</span><br><span class="line">         <span class="keyword">int</span> mid = l + (h - l) / <span class="number">2</span>;</span><br><span class="line">         <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">             <span class="keyword">if</span> (nums[i] &lt;= mid) cnt++;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (cnt &gt; mid) h = mid - <span class="number">1</span>;</span><br><span class="line">         <span class="keyword">else</span> l = mid + <span class="number">1</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">     </span><br><span class="line">    </span><br></pre>
+
+
+
+<p>双指针解法，类似于有环链表中找出环的入口:</p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> slow = nums[<span class="number">0</span>], fast = nums[nums[<span class="number">0</span>]];</span><br><span class="line">    <span class="keyword">while</span> (slow != fast) &#123;</span><br><span class="line">        slow = nums[slow];</span><br><span class="line">        fast = nums[nums[fast]];</span><br><span class="line">    &#125;</span><br><span class="line">    fast = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (slow != fast) &#123;</span><br><span class="line">        slow = nums[slow];</span><br><span class="line">        fast = nums[fast];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>数组的度</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/degree-of-an-array/description/">697. Degree of an Array (Easy)  (opens new window)</a></p>
+<pre class="highlight"><span class="line">Input: [1,2,2,3,1,4,2]</span><br><span class="line">Output: 6</span><br><span class="line">  </span><br><span class="line">    </span><br></pre>
+
+
+
+<p>题目描述: 数组的度定义为元素出现的最高频率，例如上面的数组度为 3。要求找到一个最小的子数组，这个子数组的度和原数组一样。</p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findShortestSubArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    Map&lt;Integer, Integer&gt; numsCnt = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    Map&lt;Integer, Integer&gt; numsLastIndex = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    Map&lt;Integer, Integer&gt; numsFirstIndex = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> num = nums[i];</span><br><span class="line">        numsCnt.put(num, numsCnt.getOrDefault(num, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        numsLastIndex.put(num, i);</span><br><span class="line">        <span class="keyword">if</span> (!numsFirstIndex.containsKey(num)) &#123;</span><br><span class="line">            numsFirstIndex.put(num, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> maxCnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">        maxCnt = Math.max(maxCnt, numsCnt.get(num));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> ret = nums.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> num = nums[i];</span><br><span class="line">        <span class="keyword">int</span> cnt = numsCnt.get(num);</span><br><span class="line">        <span class="keyword">if</span> (cnt != maxCnt) <span class="keyword">continue</span>;</span><br><span class="line">        ret = Math.min(ret, numsLastIndex.get(num) - numsFirstIndex.get(num) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">      </span><br><span class="line">    </span><br></pre>
+
+
+
+<p>题目描述: 分隔数组，使得对每部分排序后数组就为有序。</p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxChunksToSorted</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> right = arr[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        right = Math.max(right, arr[i]);</span><br><span class="line">        <span class="keyword">if</span> (right == i) ret++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>对角元素相等的矩阵</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/toeplitz-matrix/description/">766. Toeplitz Matrix (Easy)  (opens new window)</a></p>
+<pre class="highlight"><span class="line">1234</span><br><span class="line">5123</span><br><span class="line">9512</span><br><span class="line"></span><br><span class="line">In the above grid, the diagonals are &quot;[9]&quot;, &quot;[5, 5]&quot;, &quot;[1, 1, 1]&quot;, &quot;[2, 2, 2]&quot;, &quot;[3, 3]&quot;, &quot;[4]&quot;, and in each diagonal all elements are the same, so the answer is True.</span><br><span class="line">  </span><br><span class="line">      </span><br><span class="line">    </span><br></pre>
+
+
+
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isToeplitzMatrix</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; matrix[<span class="number">0</span>].length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!check(matrix, matrix[<span class="number">0</span>][i], <span class="number">0</span>, i)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; matrix.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!check(matrix, matrix[i][<span class="number">0</span>], i, <span class="number">0</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> expectValue, <span class="keyword">int</span> row, <span class="keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (row &gt;= matrix.length || col &gt;= matrix[<span class="number">0</span>].length) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (matrix[row][col] != expectValue) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> check(matrix, expectValue, row + <span class="number">1</span>, col + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>嵌套数组</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/array-nesting/description/">565. Array Nesting (Medium)  (opens new window)</a></p>
+<pre class="highlight"><span class="line">Input: A = [5,4,0,3,1,6,2]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation:</span><br><span class="line">A[0] = 5, A[1] = 4, A[2] = 0, A[3] = 3, A[4] = 1, A[5] = 6, A[6] = 2.</span><br><span class="line"></span><br><span class="line">One of the longest S[K]:</span><br><span class="line">S[0] = &#123;A[0], A[5], A[6], A[2]&#125; = &#123;5, 6, 2, 0&#125;</span><br><span class="line"> </span><br><span class="line">    </span><br></pre>
+
+<p>题目描述: S[i] 表示一个集合，集合的第一个元素是 A[i]，第二个元素是 A[A[i]]，如此嵌套下去。求最大的 S[i]。</p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">arrayNesting</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i; nums[j] != -<span class="number">1</span>; ) &#123;</span><br><span class="line">            cnt++;</span><br><span class="line">            <span class="keyword">int</span> t = nums[j];</span><br><span class="line">            nums[j] = -<span class="number">1</span>; <span class="comment">// 标记该位置已经被访问</span></span><br><span class="line">            j = t;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        max = Math.max(max, cnt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>分隔数组</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/max-chunks-to-make-sorted/description/">769. Max Chunks To Make Sorted (Medium)  (opens new window)</a></p>
+<pre class="highlight"><span class="line">Input: arr = [1,0,2,3,4]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation:</span><br><span class="line">We can split into two chunks, such as [1, 0], [2, 3, 4].</span><br><span class="line">However, splitting into [1, 0], [2], [3], [4] is the highest number of chunks possible.</span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line">    </span><br></pre>
+
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/Java/about">
+            Sirchw
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://wuhefei.github.io/Java/2020/05/30/%E6%95%B0%E7%BB%84%E5%92%8C%E7%9F%A9%E9%98%B5/">
+            https://wuhefei.github.io/Java/2020/05/30/%E6%95%B0%E7%BB%84%E5%92%8C%E7%9F%A9%E9%98%B5/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/Java/2021/07/29/volatile/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">Volatile关键字 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/Java/2019/05/27/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">java多线程 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">theme-kaze</p>
+<p class="author-description">1+1=2</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/Java/archives">
+    <span>11</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/Java/categories">
+    <span>7</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/Java/tags">
+    <span>16</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/Java/categories/%E7%BA%BF%E7%A8%8B/">
+        <div class="categories-list-item">
+          线程
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E7%AE%97%E6%B3%95/">
+        <div class="categories-list-item">
+          算法
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E9%9D%A2%E8%AF%95/">
+        <div class="categories-list-item">
+          面试
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JVM/">
+        <div class="categories-list-item">
+          JVM
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA-%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA-基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+        <div class="categories-list-item">
+          数据结构
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E7%BB%84/" 
+        title="数组">
+        <div class="tags-list-item">数组</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" 
+        title="双指针">
+        <div class="tags-list-item">双指针</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JUC/" 
+        title="JUC">
+        <div class="tags-list-item">JUC</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E7%AE%97%E6%B3%95/" 
+        title="算法">
+        <div class="tags-list-item">算法</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" 
+        title="数据结构">
+        <div class="tags-list-item">数据结构</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%B8%B8%E9%87%8F%E6%B1%A0/" 
+        title="常量池">
+        <div class="tags-list-item">常量池</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%A0%86/" 
+        title="堆">
+        <div class="tags-list-item">堆</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%A0%88/" 
+        title="栈">
+        <div class="tags-list-item">栈</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JAVA%E5%9F%BA%E7%A1%80/" 
+        title="JAVA基础">
+        <div class="tags-list-item">JAVA基础</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/java%E5%9F%BA%E7%A1%80/" 
+        title="java基础">
+        <div class="tags-list-item">java基础</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E9%85%8D%E7%BD%AE/" 
+        title="配置">
+        <div class="tags-list-item">配置</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JVM/" 
+        title="JVM">
+        <div class="tags-list-item">JVM</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E9%9D%A2%E8%AF%95/" 
+        title="面试">
+        <div class="tags-list-item">面试</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81/" 
+        title="轻量级锁">
+        <div class="tags-list-item">轻量级锁</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/java%E9%94%81/" 
+        title="java锁">
+        <div class="tags-list-item">java锁</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" 
+        title="多线程">
+        <div class="tags-list-item">多线程</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-02</div>
+        <a href="/Java/2021/08/02/JAVA%E5%9F%BA%E7%A1%80/"><div class="recent-posts-item-content">JAVA基础</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-31</div>
+        <a href="/Java/2021/07/31/JAVA%E5%85%B3%E9%94%AE%E5%AD%97%E6%95%B4%E7%90%86/"><div class="recent-posts-item-content">JAVA关键字</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-31</div>
+        <a href="/Java/2021/07/31/JCM%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/"><div class="recent-posts-item-content">JVM内存相关参数配置</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-31</div>
+        <a href="/Java/2021/07/31/%E8%AE%B0%E5%BD%95%E7%AE%97%E6%B3%95%E7%AC%AC%E4%BA%8C%E5%A4%A9(%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C)/"><div class="recent-posts-item-content">记录算法第一天(四数之和)</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020 -
+          
+          2021
+        </span>
+        &nbsp;
+        <a 
+          href="/Java/" 
+          class="footer-link">
+          theme-kaze demo
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/Java/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/Java/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/Java/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+  </body>
+</html>
