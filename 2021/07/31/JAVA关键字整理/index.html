@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="成长记录">
+  <link 
+    rel="icon" 
+    href="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png">
+  <title>JAVA关键字</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="JAVA关键字">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://wuhefei.github.io/Java/2021/07/31/JAVA%E5%85%B3%E9%94%AE%E5%AD%97%E6%95%B4%E7%90%86/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="成长记录">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2021-07-31">
+      <meta 
+        property="og:article:modified_time" 
+        content="2021-07-31">
+      <meta 
+        property="og:article:author" 
+        content="theme-kaze">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="java基础">
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/Java/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/Java/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">theme-kaze demo</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/Java/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/Java/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/Java/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/Java/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/Java/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/Java/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      JAVA关键字
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-07-31T14:58:25.067Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2021-07-31</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/Java/categories/JAVA-%E5%9F%BA%E7%A1%80/" 
+          class="post-meta-link">
+          JAVA 基础
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>11.6k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/Java/tags/java%E5%9F%BA%E7%A1%80/" 
+            class="post-meta-link">
+            java基础
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h1 id="一、-关键字总览"><a href="#一、-关键字总览" class="headerlink" title="一、 关键字总览:"></a><strong>一、 关键字总览:</strong></h1><table>
+<thead>
+<tr>
+<th>访问控制</th>
+<th>private</th>
+<th>protected</th>
+<th>public</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>类,方法和变量修饰符</td>
+<td>abstract</td>
+<td>class</td>
+<td>extends</td>
+<td>final</td>
+<td>implements</td>
+<td>interface</td>
+<td>native</td>
+<td>new</td>
+<td>static</td>
+</tr>
+<tr>
+<td>strictfp</td>
+<td>synchronized</td>
+<td>transient</td>
+<td>volatile</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>程序控制</td>
+<td>break</td>
+<td>continue</td>
+<td>return</td>
+<td>do</td>
+<td>while</td>
+<td>if</td>
+<td>else</td>
+<td>for</td>
+<td>instanceof</td>
+</tr>
+<tr>
+<td>switch</td>
+<td>case</td>
+<td>default</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>错误处理</td>
+<td>try</td>
+<td>catch</td>
+<td>throw</td>
+<td>throws</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>包相关</td>
+<td>import</td>
+<td>package</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>基本类型</td>
+<td>boolean</td>
+<td>byte</td>
+<td>char</td>
+<td>double</td>
+<td>float</td>
+<td>int</td>
+<td>long</td>
+<td>short</td>
+<td>null</td>
+</tr>
+<tr>
+<td>true</td>
+<td>false</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>变量引用</td>
+<td>super</td>
+<td>this</td>
+<td>void</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>保留字</td>
+<td>goto</td>
+<td>const</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>abstract</td>
+<td>表明类或者成员方法具有抽象属性</td>
+</tr>
+<tr>
+<td>assert</td>
+<td>用来进行程序调试</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>基本数据类型之一，布尔类型</td>
+</tr>
+<tr>
+<td>break</td>
+<td>提前跳出一个块</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>基本数据类型之一，字节类型</td>
+</tr>
+<tr>
+<td>case</td>
+<td>用在switch语句之中，表示其中的一个分支</td>
+</tr>
+<tr>
+<td>catch</td>
+<td>用在异常处理中，用来捕捉异常</td>
+</tr>
+<tr>
+<td>char</td>
+<td>基本数据类型之一，字符类型</td>
+</tr>
+<tr>
+<td>class</td>
+<td>类</td>
+</tr>
+<tr>
+<td>const</td>
+<td>保留关键字，没有具体含义</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>回到一个块的开始处</td>
+</tr>
+<tr>
+<td>default</td>
+<td>默认，例如，用在switch语句中，表明一个默认的分支</td>
+</tr>
+<tr>
+<td>do</td>
+<td>用在do-while循环结构中</td>
+</tr>
+<tr>
+<td>double</td>
+<td>基本数据类型之一，双精度浮点数类型</td>
+</tr>
+<tr>
+<td>else</td>
+<td>用在条件语句中，表明当条件不成立时的分支</td>
+</tr>
+<tr>
+<td>enum</td>
+<td>枚举</td>
+</tr>
+<tr>
+<td>extends</td>
+<td>表明一个类型是另一个类型的子类型，这里常见的类型有类和接口</td>
+</tr>
+<tr>
+<td>final</td>
+<td>用来说明最终属性，表明一个类不能派生出子类，或者成员方法不能被覆盖，或者成员域的值不能被改变</td>
+</tr>
+<tr>
+<td>finally</td>
+<td>用于处理异常情况，用来声明一个基本肯定会被执行到的语句块</td>
+</tr>
+<tr>
+<td>float</td>
+<td>基本数据类型之一，单精度浮点数类型</td>
+</tr>
+<tr>
+<td>for</td>
+<td>一种循环结构的引导词</td>
+</tr>
+<tr>
+<td>goto</td>
+<td>保留关键字，没有具体含义</td>
+</tr>
+<tr>
+<td>if</td>
+<td>条件语句的引导词</td>
+</tr>
+<tr>
+<td>implements</td>
+<td>表明一个类实现了给定的接口</td>
+</tr>
+<tr>
+<td>import</td>
+<td>表明要访问指定的类或包</td>
+</tr>
+<tr>
+<td>instanceof</td>
+<td>用来测试一个对象是否是指定类型的实例对象</td>
+</tr>
+<tr>
+<td>int</td>
+<td>基本数据类型之一，整数类型</td>
+</tr>
+<tr>
+<td>interface</td>
+<td>接口</td>
+</tr>
+<tr>
+<td>long</td>
+<td>基本数据类型之一，长整数类型</td>
+</tr>
+<tr>
+<td>native</td>
+<td>用来声明一个方法是由与计算机相关的语言（如C/C++/FORTRAN语言）实现的</td>
+</tr>
+<tr>
+<td>new</td>
+<td>用来创建新实例对象</td>
+</tr>
+<tr>
+<td>package</td>
+<td>包</td>
+</tr>
+<tr>
+<td>private</td>
+<td>一种访问控制方式：私用模式</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>一种访问控制方式：保护模式</td>
+</tr>
+<tr>
+<td>public</td>
+<td>一种访问控制方式：共用模式</td>
+</tr>
+<tr>
+<td>return</td>
+<td>从成员方法中返回数据</td>
+</tr>
+<tr>
+<td>short</td>
+<td>基本数据类型之一,短整数类型</td>
+</tr>
+<tr>
+<td>static</td>
+<td>表明具有静态属性</td>
+</tr>
+<tr>
+<td>strictfp</td>
+<td>用来声明FP_strict（单精度或双精度浮点数）表达式遵循IEEE 754算术规范</td>
+</tr>
+<tr>
+<td>super</td>
+<td>表明当前对象的父类型的引用或者父类型的构造方法</td>
+</tr>
+<tr>
+<td>switch</td>
+<td>分支语句结构的引导词</td>
+</tr>
+<tr>
+<td>synchronized</td>
+<td>表明一段代码需要同步执行</td>
+</tr>
+<tr>
+<td>this</td>
+<td>指向当前实例对象的引用</td>
+</tr>
+<tr>
+<td>throw</td>
+<td>抛出一个异常</td>
+</tr>
+<tr>
+<td>throws</td>
+<td>声明在当前定义的成员方法中所有需要抛出的异常</td>
+</tr>
+<tr>
+<td>transient</td>
+<td>声明不用序列化的成员域</td>
+</tr>
+<tr>
+<td>try</td>
+<td>尝试一个可能抛出异常的程序块</td>
+</tr>
+<tr>
+<td>void</td>
+<td>声明当前成员方法没有返回值</td>
+</tr>
+<tr>
+<td>volatile</td>
+<td>表明两个或者多个变量必须同步地发生变化</td>
+</tr>
+<tr>
+<td>while</td>
+<td>用在循环结构中</td>
+</tr>
+</tbody></table>
+<h1 id="二、-详细解释"><a href="#二、-详细解释" class="headerlink" title="二、 详细解释"></a><strong>二、 详细解释</strong></h1><h2 id="1-访问控制"><a href="#1-访问控制" class="headerlink" title="1. 访问控制"></a><strong>1. 访问控制</strong></h2><p><strong>1) private 私有的</strong></p>
+<p>private 关键字是访问控制修饰符，可以应用于类、方法或字段（在类中声明的变量）。 只能在声明 private（内部）类、方法或字段的类中引用这些类、方法或字段。在类的外部或者对于子类而言，它们是不可见的。 所有类成员的默认访问范围都是 package 访问，也就是说，除非存在特定的访问控制修饰符，否则，可以从同一个包中的任何类访问类成员。</p>
+<p>​                private class Person(){    private String type;    private String void gettype(){        return “外星人1”;    } } //外部访问不了 //报错              </p>
+<p><strong>2) protected 受保护的</strong></p>
+<p>protected 关键字是可以应用于类、方法或字段（在类中声明的变量）的访问控制修饰符。可以在声明 protected 类、方法或字段的类、同一个包中的其他任何类以及任何子类（无论子类是在哪个包中声明的）中引用这些类、方法或字段。所有类成员的默认访问范围都是 package 访问，也就是说，除非存在特定的访问控制修饰符，否则，可以从同一个包中的任何类访问类成员。</p>
+<p><strong>3) public 公共的</strong></p>
+<p>public 关键字是可以应用于类、方法或字段（在类中声明的变量）的访问控制修饰符。 可能只会在其他任何类或包中引用 public 类、方法或字段。所有类成员的默认访问范围都是 package 访问，也就是说，除非存在特定的访问控制修饰符，否则，可以从同一个包中的任何类访问类成员。</p>
+<p>​                 public class Cookie {  public Cookie() {   System.out.println(“Cookie constructor”);    }     void bite() {     System.out.println(“bite”);     }   }               </p>
+<h2 id="2-类、方法和变量修饰符"><a href="#2-类、方法和变量修饰符" class="headerlink" title="2. 类、方法和变量修饰符"></a><strong>2. 类、方法和变量修饰符</strong></h2><p><strong>1) abstract 声明抽象</strong></p>
+<p>abstract关键字可以修改类或方法。abstract类可以扩展（增加子类），但不能直接实例化。abstract方法不在声明它的类中实现，但必须在某个子类中重写。采用 abstract方法的类本来就是抽象类，并且必须声明为abstract。</p>
+<p><strong>2) class类</strong></p>
+<p>class 关键字用来声明新的 <a target="_blank" rel="noopener" href="http://lib.csdn.net/base/17">Java</a> 类，该类是相关变量和/或方法的集合。类是面向对象的程序设计方法的基本构造单位。类通常代表某种实际实体，如几何形状或人。类是对象的模板。每个对象都是类的一个实例。要使用类，通常使用 new 操作符将类的对象实例化，然后调用类的方法来访问类的功能。</p>
+<p><strong>3) extends 继承、扩展</strong></p>
+<p>extends 关键字用在 class 或 interface 声明中，用于指示所声明的类或接口是其名称后跟有 extends 关键字的类或接口的子类。子类继承父类的所有 public 和 protected 变量和方法。 子类可以重写父类的任何非 final 方法。一个类只能扩展一个其他类。</p>
+<p><strong>4) final 最终、不可改变</strong></p>
+<p>final 关键字可以应用于类，以指示不能扩展该类（不能有子类）。final 关键字可以应用于方法，以指示在子类中不能重写此方法。一个类不能同时是 abstract 又是 final。abstract 意味着必须扩展类，final 意味着不能扩展类。一个方法不能同时是 abstract 又是 final。abstract 意味着必须重写方法，final 意味着不能重写方法。</p>
+<p><strong>5) implements实现</strong></p>
+<p>implements 关键字在 class 声明中使用，以指示所声明的类提供了在 implements 关键字后面的名称所指定的接口中所声明的所有方法的实现。类必须提供在接口中所声明的所有方法的实现。一个类可以实现多个接口。</p>
+<p><strong>6) interface 接口</strong></p>
+<p>interface 关键字用来声明新的 Java 接口，接口是方法的集合。</p>
+<p>接口是 Java 语言的一项强大功能。任何类都可声明它实现一个或多个接口，这意味着它实现了在这些接口中所定义的所有方法。 </p>
+<p>实现了接口的任何类都必须提供在该接口中的所有方法的实现。一个类可以实现多个接口。</p>
+<p><strong>7) native 本地</strong></p>
+<p>native 关键字可以应用于方法，以指示该方法是用 Java 以外的语言实现的。</p>
+<p><strong>8) new 新,创建</strong></p>
+<p>new 关键字用于创建类的新实例。 </p>
+<p>new 关键字后面的参数必须是类名，并且类名的后面必须是一组构造方法参数（必须带括号）。 </p>
+<p>参数集合必须与类的构造方法的签名匹配。 </p>
+<p>= 左侧的变量的类型必须与要实例化的类或接口具有赋值兼容关系。</p>
+<p><strong>9) static 静态</strong></p>
+<p>static 关键字可以应用于内部类（在另一个类中定义的类）、方法或字段（类的成员变量）。 </p>
+<p>通常，static 关键字意味着应用它的实体在声明该实体的类的任何特定实例外部可用。</p>
+<p>static（内部）类可以被其他类实例化和引用（即使它是顶级类）。在上面的示例中，另一个类中的代码可以实例化 MyStaticClass 类，方法是用包含它的类名来限定其名称，如 MyClass.MyStaticClass。 </p>
+<p>static 字段（类的成员变量）在类的所有实例中只存在一次。 </p>
+<p>可以从类的外部调用 static 方法，而不用首先实例化该类。这样的引用始终包括类名作为方法调用的限定符。</p>
+<p>模式：public final static varName = ; 通常用于声明可以在类的外部使用的类常量。在引用这样的类常量时需要用类名加以限定。在上面的示例中，另一个类可以用 MyClass.MAX_OBJECTS 形式来引用 MAX_OBJECTS 常量。</p>
+<p><strong>10) strictfp 严格,精准</strong></p>
+<p>strictfp的意思是FP-strict，也就是说精确浮点的意思。在Java虚拟机进行浮点运算时，如果没有指定strictfp关键字时，Java的编译器以及运行环境在对浮点运算的表达式是采取一种近似于我行我素的行为来完成这些操作，以致于得到的结果往往无法令人满意。而一旦使用了strictfp来声明一个类、接口或者方法时，那么所声明的范围内Java的编译器以及运行环境会完全依照浮点规范IEEE-754来执行。因此如果想让浮点运算更加精确，而且不会因为不同的硬件平台所执行的结果不一致的话，那就请用关键字strictfp。</p>
+<p>可以将一个类、接口以及方法声明为strictfp，但是不允许对接口中的方法以及构造函数声明strictfp关键字</p>
+<p><strong>11) synchronized线程、同步</strong></p>
+<p>synchronized 关键字可以应用于方法或语句块，并为一次只应由一个线程执行的关键代码段提供保护。 </p>
+<p>synchronized 关键字可防止代码的关键代码段一次被多个线程执行。 </p>
+<p>如果应用于静态方法，那么，当该方法一次由一个线程执行时，整个类将被锁定。 </p>
+<p>如果应用于实例方法，那么，当该方法一次由一个线程访问时，该实例将被锁定。 </p>
+<p>如果应用于对象或数组，当关联的代码块一次由一个线程执行时，对象或数组将被锁定。</p>
+<p><strong>12) transient 短暂</strong></p>
+<p>transient 关键字可以应用于类的成员变量，以便指出该成员变量不应在包含它的类实例已序列化时被序列化。</p>
+<p>当一个对象被串行化的时候，transient型变量的值不包括在串行化的表示中，然而非transient型的变量是被包括进去的。</p>
+<p>Java的serialization提供了一种持久化对象实例的机制。当持久化对象时，可能有一个特殊的对象数据成员，我们不想用serialization机制来保存它。为了在一个特定对象的一个域上关闭serialization，可以在这个域前加上关键字transient。</p>
+<p>   transient是Java语言的关键字，用来表示一个域不是该对象串行化的一部分。当一个对象被串行化的时候，transient型变量的值不包括在串行化的表示中，然而非transient型的变量是被包括进去的。</p>
+<p><strong>13) volatile 易失</strong></p>
+<p>volatile 关键字用于表示可以被多个线程异步修改的成员变量。 </p>
+<p>注意：volatile 关键字在许多 Java 虚拟机中都没有实现。 volatile 的目标用途是为了确保所有线程所看到的指定变量的值都是相同的。</p>
+<p>Java 语言中的 volatile 变量可以被看作是一种 “程度较轻的 synchronized”；与 synchronized 块相比，volatile 变量所需的编码较少，并且运行时开销也较少，但是它所能实现的功能也仅是 synchronized 的一部分。</p>
+<h2 id="3-程序控制语句"><a href="#3-程序控制语句" class="headerlink" title="3. 程序控制语句"></a><strong>3. 程序控制语句</strong></h2><p><strong>1) break 跳出，中断</strong></p>
+<p>break 关键字用于提前退出 for、while 或 do 循环，或者在 switch 语句中用来结束 case 块。 </p>
+<p>break 总是退出最深层的 while、for、do 或 switch 语句。</p>
+<p><strong>2) continue 继续</strong></p>
+<p>continue 关键字用来跳转到 for、while 或 do 循环的下一个迭代。 </p>
+<p>continue 总是跳到最深层 while、for 或 do 语句的下一个迭代。</p>
+<p><strong>3) return 返回</strong></p>
+<p>return 关键字会导致方法返回到调用它的方法，从而传递与返回方法的返回类型匹配的值。 </p>
+<p>如果方法具有非 void 的返回类型，return 语句必须具有相同或兼容类型的参数。 </p>
+<p>返回值两侧的括号是可选的。</p>
+<p><strong>4) do 运行</strong></p>
+<p>do 关键字用于指定一个在每次迭代结束时检查其条件的循环。 </p>
+<p>do 循环体至少执行一次。 </p>
+<p>条件表达式后面必须有分号。</p>
+<p><strong>5) while 循环</strong></p>
+<p>while 关键字用于指定一个只要条件为真就会重复的循环。</p>
+<p><strong>6) if 如果</strong></p>
+<p>if 关键字指示有条件地执行代码块。条件的计算结果必须是布尔值。 </p>
+<p>if 语句可以有可选的 else 子句，该子句包含条件为 false 时将执行的代码。 </p>
+<p>包含 boolean 操作数的表达式只能包含 boolean 操作数。</p>
+<p><strong>7) else 否则</strong></p>
+<p>else 关键字总是在 if-else 语句中与 if 关键字结合使用。else 子句是可选的，如果 if 条件为 false，则执行该子句。</p>
+<p><strong>8) for 循环</strong></p>
+<p>for 关键字用于指定一个在每次迭代结束前检查其条件的循环。 </p>
+<p>for 语句的形式为 for(initialize; condition; increment) </p>
+<p>控件流进入 for 语句时，将执行一次 initialize 语句。 </p>
+<p>每次执行循环体之前将计算 condition 的结果。如果 condition 为 true，则执行循环体。 </p>
+<p>每次执行循环体之后，在计算下一个迭代的 condition 之前，将执行 increment 语句。</p>
+<p><strong>9) instanceof 实例</strong></p>
+<p>instanceof 关键字用来确定对象所属的类。</p>
+<p><strong>10) switch 观察</strong></p>
+<p>switch 语句用于基于某个表达式选择执行多个代码块中的某一个。 </p>
+<p>switch 条件的计算结果必须等于 byte、char、short 或 int。 </p>
+<p>case 块没有隐式结束点。break 语句通常在每个 case 块末尾使用，用于退出 switch 语句。 </p>
+<p>如果没有 break 语句，执行流将进入所有后面的 case 和/或 default 块。</p>
+<p><strong>11) case 返回观察里的结果</strong></p>
+<p>case 用来标记 switch 语句中的每个分支。 </p>
+<p>case 块没有隐式结束点。break 语句通常在每个 case 块末尾使用，用于退出 switch 语句。 </p>
+<p>如果没有 break 语句，执行流将进入所有后面的 case 和/或 default 块。</p>
+<p><strong>12) default 默认</strong></p>
+<p>default 关键字用来标记 switch 语句中的默认分支。 </p>
+<p>default 块没有隐式结束点。break 语句通常在每个 case 或 default 块的末尾使用，以便在完成块时退出 switch 语句。 </p>
+<p>如果没有 default 语句，其参数与任何 case 块都不匹配的 switch 语句将不执行任何操作。</p>
+<h2 id="4-错误处理"><a href="#4-错误处理" class="headerlink" title="4. 错误处理"></a><strong>4. 错误处理</strong></h2><p><strong>1) try 捕获异常</strong></p>
+<p>try 关键字用于包含可能引发异常的语句块。 </p>
+<p>每个 try 块都必须至少有一个 catch 或 finally 子句。 </p>
+<p>如果某个特定异常类未被任何 catch 子句处理，该异常将沿着调用栈递归地传播到下一个封闭 try 块。如果任何封闭 try 块都未捕获到异常，Java 解释器将退出，并显示错误消息和堆栈跟踪信息。</p>
+<p><strong>2) catch 处理异常</strong></p>
+<p>catch 关键字用来在 try-catch 或 try-catch-finally 语句中定义异常处理块。 </p>
+<p>开始和结束标记 { 和 } 是 catch 子句语法的一部分，即使该子句只包含一个语句，也不能省略这两个标记。 </p>
+<p>每个 try 块都必须至少有一个 catch 或 finally 子句。 </p>
+<p>如果某个特定异常类未被任何 catch 子句处理，该异常将沿着调用栈递归地传播到下一个封闭 try 块。如果任何封闭 try 块都未捕获到异常，Java 解释器将退出，并显示错误消息和堆栈跟踪信息。</p>
+<p><strong>3) throw 抛出一个异常对象</strong></p>
+<p>throw 关键字用于引发异常。 </p>
+<p>throw 语句将 java.lang.Throwable 作为参数。Throwable 在调用栈中向上传播，直到被适当的 catch 块捕获。 </p>
+<p>引发非 RuntimeException 异常的任何方法还必须在方法声明中使用 throws 修饰符来声明它引发的异常。</p>
+<p><strong>4) throws 声明一个异常可能被抛出</strong></p>
+<p>throws 关键字可以应用于方法，以便指出方法引发了特定类型的异常。 </p>
+<p>throws 关键字将逗号分隔的 java.lang.Throwables 列表作为参数。 </p>
+<p>引发非 RuntimeException 异常的任何方法还必须在方法声明中使用 throws 修饰符来声明它引发的异常。 </p>
+<p>要在 try-catch 块中包含带 throws 子句的方法的调用，必须提供该方法的调用者。</p>
+<h2 id="5-包相关"><a href="#5-包相关" class="headerlink" title="5. 包相关"></a><strong>5. 包相关</strong></h2><p><strong>1) import 引入</strong></p>
+<p>import 关键字使一个包中的一个或所有类在当前 Java 源文件中可见。可以不使用完全限定的类名来引用导入的类。 </p>
+<p>当多个包包含同名的类时，许多 Java 程序员只使用特定的 import 语句（没有“*”）来避免不确定性。</p>
+<p><strong>2) package 包</strong></p>
+<p>package 关键字指定在 Java 源文件中声明的类所驻留的 Java 包。 </p>
+<p>package 语句（如果出现）必须是 Java 源文件中的第一个非注释性文本。 </p>
+<p>例:java.lang.Object。 </p>
+<p>如果 Java 源文件不包含 package 语句，在该文件中定义的类将位于“默认包”中。请注意，不能从非默认包中的类引用默认包中的类。</p>
+<h2 id="6-基本类型"><a href="#6-基本类型" class="headerlink" title="6. 基本类型"></a><strong>6. 基本类型</strong></h2><p><strong>1) boolean 布尔型</strong></p>
+<p>boolean 是 Java 原始类型。boolean 变量的值可以是 true 或 false。 </p>
+<p>boolean 变量只能以 true 或 false 作为值。boolean 不能与数字类型相互转换。 </p>
+<p>包含 boolean 操作数的表达式只能包含 boolean 操作数。 </p>
+<p>Boolean 类是 boolean 原始类型的包装对象类。</p>
+<p><strong>2) byte 字节型</strong></p>
+<p>byte 是 Java 原始类型。byte 可存储在 [-128, 127] 范围以内的整数值。 </p>
+<p>Byte 类是 byte 原始类型的包装对象类。它定义代表此类型的值的范围的 MIN_VALUE 和 MAX_VALUE 常量。 </p>
+<p>Java 中的所有整数值都是 32 位的 int 值，除非值后面有 l 或 L（如 235L），这表示该值应解释为 long。</p>
+<p><strong>3) char 字符型</strong></p>
+<p>char 是 Java 原始类型。char 变量可以存储一个 Unicode 字符。 </p>
+<p>可以使用下列 char 常量：\b - 空格, \f - 换页, \n - 换行, \r - 回车, \t - 水平制表符, &#39; - 单引号, &quot; - 双引号, \ - 反斜杠, \xxx - 采用 xxx 编码的 Latin-1 字符。\x 和 \xx 均为合法形式，但可能引起混淆。 \uxxxx - 采用十六进制编码 xxxx 的 Unicode 字符。 </p>
+<p>Character 类包含一些可用来处理 char 变量的 static 方法，这些方法包括 isDigit()、isLetter()、isWhitespace() 和 toUpperCase()。 </p>
+<p>char 值没有符号。</p>
+<p><strong>4) double 双精度</strong></p>
+<p>double 是 Java 原始类型。double 变量可以存储双精度浮点值。 </p>
+<p>由于浮点数据类型是实际数值的近似值，因此，一般不要对浮点数值进行是否相等的比较。 </p>
+<p>Java 浮点数值可代表无穷大和 NaN（非数值）。Double 包装对象类用来定义常量 MIN_VALUE、MAX_VALUE、NEGATIVE_INFINITY、POSITIVE_INFINITY 和 NaN。</p>
+<p><strong>5) float 浮点</strong></p>
+<p>float 是 Java 原始类型。float 变量可以存储单精度浮点值。 </p>
+<p>使用此关键字时应遵循下列规则： </p>
+<p>Java 中的浮点文字始终默认为双精度。要指定单精度文字值，应在数值后加上 f 或 F，如 0.01f。 </p>
+<p>由于浮点数据类型是实际数值的近似值，因此，一般不要对浮点数值进行是否相等的比较。 </p>
+<p>Java 浮点数值可代表无穷大和 NaN（非数值）。Float 包装对象类用来定义常量 MIN_VALUE、MAX_VALUE、NEGATIVE_INFINITY、POSITIVE_INFINITY 和 NaN。</p>
+<p><strong>6) int 整型</strong></p>
+<p>int 是 Java 原始类型。int 变量可以存储 32 位的整数值。 </p>
+<p>Integer 类是 int 原始类型的包装对象类。它定义代表此类型的值的范围的 MIN_VALUE 和 MAX_VALUE 常量。 </p>
+<p>Java 中的所有整数值都是 32 位的 int 值，除非值后面有 l 或 L（如 235L），这表示该值应解释为 long。</p>
+<p><strong>7) long 长整型</strong></p>
+<p>long 是 Java 原始类型。long 变量可以存储 64 位的带符号整数。 </p>
+<p>Long 类是 long 原始类型的包装对象类。它定义代表此类型的值的范围的 MIN_VALUE 和 MAX_VALUE 常量。 </p>
+<p>Java 中的所有整数值都是 32 位的 int 值，除非值后面有 l 或 L（如 235L），这表示该值应解释为 long。</p>
+<p><strong>8) short 短整型</strong></p>
+<p>short 是 Java 原始类型。short 变量可以存储 16 位带符号的整数。 </p>
+<p>Short 类是 short 原始类型的包装对象类。它定义代表此类型的值的范围的 MIN_VALUE 和 MAX_VALUE 常量。 </p>
+<p>Java 中的所有整数值都是 32 位的 int 值，除非值后面有 l 或 L（如 235L），这表示该值应解释为 long。</p>
+<p><strong>9) null 空</strong></p>
+<p>null 是 Java 的保留字，表示无值。 </p>
+<p>将 null 赋给非原始变量相当于释放该变量先前所引用的对象。 </p>
+<p>不能将 null 赋给原始类型（byte、short、int、long、char、float、double、boolean）变量。</p>
+<p><strong>10) true 真</strong></p>
+<p>true 关键字表示 boolean 变量的两个合法值中的一个。</p>
+<p><strong>11) false 假</strong></p>
+<p>false 关键字代表 boolean 变量的两个合法值之一。</p>
+<h2 id="7-变量引用"><a href="#7-变量引用" class="headerlink" title="7. 变量引用"></a><strong>7. 变量引用</strong></h2><p><strong>1) super 父类,超类</strong></p>
+<p>super 关键字用于引用使用该关键字的类的超类。 </p>
+<p>作为独立语句出现的 super 表示调用超类的构造方法。 </p>
+<p>super.() 表示调用超类的方法。只有在如下情况中才需要采用这种用法：要调用在该类中被重写的方法，以便指定应当调用在超类中的该方法。</p>
+<p><strong>2) this 本类</strong></p>
+<p>this 关键字用于引用当前实例。 </p>
+<p>当引用可能不明确时，可以使用 this 关键字来引用当前的实例。</p>
+<p><strong>3) void 无返回值</strong></p>
+<p>void 关键字表示 null 类型。 </p>
+<p>void 可以用作方法的返回类型，以指示该方法不返回值。</p>
+<h2 id="8-保留字"><a href="#8-保留字" class="headerlink" title="8. 保留字"></a><strong>8. 保留字</strong></h2><p>正确识别java语言的关键字（keyword）和保留字（reserved word）是十分重要的。Java的关键字对java的编译器有特殊的意义，他们用来表示一种数据类型，或者表示程序的结构等。保留字是为java预留的关键字，他们虽然现在没有作为关键字，但在以后的升级版本中有可能作为关键字。</p>
+<p>识别java语言的关键字，不要和其他语言如c/c++的关键字混淆。 </p>
+<p>const和goto是java的保留字。 所有的关键字都是小写 </p>
+<p><strong>1) goto 跳转</strong></p>
+<p>goto 保留关键字，但无任何作用。结构化程序设计完全不需要 goto 语句即可完成各种流程，而 goto 语句的使用往往会使程序的可读性降低，所以 Java 不允许 goto 跳转。</p>
+<p><strong>2) const 静态</strong></p>
+<p>const 保留字，是一个类型修饰符，使用const声明的对象不能更新。与final某些类似。</p>
+<p><strong>3) native 本地</strong></p>
+<p>　Java不是完美的，Java的不足除了体现在运行速度上要比传统的C++慢许多之外，Java无法直接访问到操作系统底层（如系统硬件等)，为此Java使用native方法来扩展Java程序的功能。 </p>
+<p>　　可以将native方法比作Java程序同Ｃ程序的接口，其实现步骤： </p>
+<p>　　１、在Java中声明native()方法，然后编译； </p>
+<p>　　２、用javah产生一个.h文件； </p>
+<p>　　３、写一个.cpp文件实现native导出方法，其中需要包含第二步产生的.h文件（注意其中又包含了JDK带的jni.h文件）； </p>
+<p>　　４、将第三步的.cpp文件编译成动态链接库文件； </p>
+<p>　　５、在Java中用System.loadLibrary()方法加载第四步产生的动态链接库文件，这个native()方法就可以在Java中被访问了。 </p>
+<h1 id="三-Java关键字更详细介绍"><a href="#三-Java关键字更详细介绍" class="headerlink" title="三,Java关键字更详细介绍"></a><strong>三,Java关键字更详细介绍</strong></h1><p><strong>abstract</strong></p>
+<p>abstract关键字可以修改类或方法。</p>
+<p>abstract类可以扩展（增加子类），但不能直接实例化。</p>
+<p>abstract方法不在声明它的类中实现，但必须在某个子类中重写。</p>
+<p>-示例-</p>
+<p>public abstract class MyClass{}</p>
+<p>public abstract String myMethod();</p>
+<p>-注释-</p>
+<p>采用abstract方法的类本来就是抽象类，并且必须声明为abstract。</p>
+<p>abstract类不能实例化。</p>
+<p>仅当abstract类的子类实现其超类的所有abstract方法时，才能实例化abstract类的子类。这种类称为具体类，以区别于abstract类。</p>
+<p>如果abstract类的子类没有实现其超类的所有abstract方法，该子类也是abstract类。</p>
+<p>abstract关键字不能应用于static、private或final方法，因为这些方法不能被重写，因此，不能在子类中实现。</p>
+<p>final类的方法都不能是abstract，因为final类不能有子类。</p>
+<p><strong>boolean</strong></p>
+<p>boolean变量的值可以是true或false。</p>
+<p>-示例-</p>
+<p>boolean valid=true;</p>
+<p>if(valid){</p>
+<p>}</p>
+<p>-注释-</p>
+<p>boolean变量只能以true或false作为值。</p>
+<p>boolean不能与数字类型相互转换。</p>
+<p>包含boolean操作数的表达式只能包含boolean操作数。</p>
+<p>Boolean类是boolean原始类型的包装对象类。</p>
+<p><strong>break</strong></p>
+<p>用于提前退出for、while或do循环，或者在switch语句中用来结束case块。</p>
+<p>-示例-</p>
+<p>for(i=0;i</p>
+<p>if(){</p>
+<p>break;}}</p>
+<p>inttype=;</p>
+<p>switch(type){</p>
+<p>case1:</p>
+<p>break;</p>
+<p>case2:</p>
+<p>break;</p>
+<p>default:</p>
+<p>}</p>
+<p>-注释-</p>
+<p>break总是退出最深层的while、for、do或switch语句。</p>
+<p><strong>byte</strong></p>
+<p>byte是Java原始类型。</p>
+<p>byte可存储在[-128,127]范围以内的整数值。</p>
+<p>-示例-</p>
+<p>byteb=124;</p>
+<p>-注释-</p>
+<p>Byte类是byte原始类型的包装对象类。它定义代表此类型的值的范围的MIN_VALUE和MAX_VALUE常量。</p>
+<p>Java中的所有整数值都是32位的int值，除非值后面有l或L（如235L），这表示该值应解释为long。</p>
+<p><strong>case</strong></p>
+<p>用来标记switch语句中的每个分支。</p>
+<p>-示例-</p>
+<p>intarg=;</p>
+<p>switch(arg){</p>
+<p>case1:</p>
+<p>break;</p>
+<p>case2:</p>
+<p>break;</p>
+<p>default:</p>
+<p>break;}</p>
+<p>-注释-</p>
+<p>case块没有隐式结束点。break语句通常在每个case块末尾使用，用于退出switch语句。</p>
+<p>如果没有break语句，执行流将进入所有后面的case和/或default块。</p>
+<p><strong>catch</strong></p>
+<p>catch关键字用来在try-catch或try-catch-finally语句中定义异常处理块。</p>
+<p>-示例-</p>
+<p>try{</p>
+<p>&lt;可能引发异常的块&gt;</p>
+<p>}</p>
+<p>catch(e){</p>
+<p>&lt;处理异常e的代码&gt;</p>
+<p>}</p>
+<p>try{</p>
+<p>&lt;可能引发其他异常的块&gt;</p>
+<p>}</p>
+<p>catch(FooExceptione){</p>
+<p>&lt;处理FooExceptione的代码&gt;</p>
+<p>}</p>
+<p>catch(BarExceptione){</p>
+<p>&lt;处理BarExceptione的代码&gt;</p>
+<p>}</p>
+<p>try{</p>
+<p>&lt;可能引发异常的块&gt;</p>
+<p>}</p>
+<p>catch(e){</p>
+<p>&lt;处理异常e的代码&gt;</p>
+<p>}</p>
+<p>finally{</p>
+<p>&lt;有异常或无异常情况下都执行的语句&gt;</p>
+<p>}</p>
+<p>-注释-</p>
+<p>开始和结束标记{和}是catch子句语法的一部分，即使该子句只包含一个语句，也不能省略这两个标记。</p>
+<p>每个try块都必须至少有一个catch或finally子句。</p>
+<p>如果某个特定异常类未被任何catch子句处理，该异常将沿着调用栈递归地传播到下一个封闭try块。如果任何封闭try块都未捕获到异常，Java解释器将退出，并显示错误消息和堆栈跟踪信息。</p>
+<p><strong>char</strong></p>
+<p>char是Java原始类型。</p>
+<p>char变量可以存储一个Unicode字符。</p>
+<p>-示例-</p>
+<p>chardelimiter=’;’;</p>
+<p>-注释-</p>
+<p>可以使用下列char常量：</p>
+<p>\b-空格</p>
+<p>\f-换页</p>
+<p>\n-换行</p>
+<p>\r-回车</p>
+<p>\t-水平制表符</p>
+<p>&#39;-单引号</p>
+<p>&quot;-双引号</p>
+<p>&quot;-反斜杠</p>
+<p>\xxx-采用xxx编码的Latin-1字符。\x和\xx均为合法形式，但可能引起混淆。</p>
+<p>\uxxxx-采用十六进制编码xxxx的Unicode字符。</p>
+<p>Character类包含一些可用来处理char变量的static方法，这些方法包括isDigit()、isLetter()、isWhitespace()和toUpperCase()。</p>
+<p>char值没有符号。</p>
+<p><strong>class</strong></p>
+<p>class关键字用来声明新的Java类，该类是相关变量和/或方法的集合。</p>
+<p>类是面向对象的程序设计方法的基本构造单位。类通常代表某种实际实体，如几何形状或人。类是对象的模板。每个对象都是类的一个实例。</p>
+<p>要使用类，通常使用new操作符将类的对象实例化，然后调用类的方法来访问类的功能。</p>
+<p>-示例-</p>
+<p>public class Rectangle{</p>
+<p>float width;</p>
+<p>float height;</p>
+<p>public Rectangle(floatw,floath){</p>
+<p>width=w;</p>
+<p>height=h;</p>
+<p>}</p>
+<p>public float getWidth(){</p>
+<p>returnwidth;</p>
+<p>}</p>
+<p>public float getHeight(){</p>
+<p>return height;</p>
+<p>}</p>
+<p>}</p>
+<p><strong>continue</strong></p>
+<p>continue关键字用来跳转到for、while或do循环的下一个迭代。</p>
+<p>-示例-</p>
+<p>for(i=0;i</p>
+<p>if(){</p>
+<p>continue;</p>
+<p>}</p>
+<p>}</p>
+<p>-注释-</p>
+<p>continue总是跳到最深层while、for或do语句的下一个迭代。</p>
+<p><strong>default</strong></p>
+<p>default关键字用来标记switch语句中的默认分支。</p>
+<p>-示例-</p>
+<p>intarg=;</p>
+<p>switch(arg){</p>
+<p>case1:</p>
+<p>break;</p>
+<p>case2:</p>
+<p>break;</p>
+<p>default:</p>
+<p>break;</p>
+<p>}</p>
+<p>-注释-</p>
+<p>default块没有隐式结束点。break语句通常在每个case或default块的末尾使用，以便在完成块时退出switch语句。</p>
+<p>如果没有default语句，其参数与任何case块都不匹配的switch语句将不执行任何操作。</p>
+<p><strong>do</strong></p>
+<p>do关键字用于指定一个在每次迭代结束时检查其条件的循环。</p>
+<p>-示例-</p>
+<p>do{</p>
+<p>}</p>
+<p>while(!found);</p>
+<p>-注释-</p>
+<p>do循环体至少执行一次。</p>
+<p>条件表达式后面必须有分号。</p>
+<p><strong>double</strong></p>
+<p>double是Java原始类型。</p>
+<p>double变量可以存储双精度浮点值。</p>
+<p>-示例-</p>
+<p>double ratio=.01;</p>
+<p>double diameter=6.15;</p>
+<p>double height=1.35E03;//1.35*103或1350.0</p>
+<p>double height=1e-2;//1.0*10-2或0.01</p>
+<p>-注释-</p>
+<p>由于浮点数据类型是实际数值的近似值，因此，一般不要对浮点数值进行是否相等的比较。</p>
+<p>Java浮点数值可代表无穷大和NaN（非数值）。Double包装对象类用来定义常量MIN_VALUE、MAX_VALUE、NEGATIVE_INFINITY、POSITIVE_INFINITY和NaN。</p>
+<p><strong>else</strong></p>
+<p>else关键字总是在if-else语句中与if关键字结合使用。else子句是可选的，如果if条件为false，则执行该子句。</p>
+<p>-示例-</p>
+<p>if(condition){</p>
+<p>}</p>
+<p>else{</p>
+<p>}</p>
+<p><strong>extends</strong></p>
+<p>extends关键字用在class或interface声明中，用于指示所声明的类或接口是其名称后跟有extends关键字的类或接口的子类。</p>
+<p>-示例-</p>
+<p>public class Rectangle extends Polygon{</p>
+<p>}</p>
+<p>-注释-</p>
+<p>在上例中，Rectangle类继承Polygon类的所有public和protected变量和方法。</p>
+<p>Rectangle类可以重写Polygon类的任何非final方法。</p>
+<p>一个类只能扩展一个其他类。</p>
+<p><strong>false</strong></p>
+<p>false关键字代表boolean变量的两个合法值之一。</p>
+<p>-示例-</p>
+<p>boolean is Complete=false;</p>
+<p><strong>final</strong></p>
+<p>final关键字可以应用于类，以指示不能扩展该类（不能有子类）。</p>
+<p>final关键字可以应用于方法，以指示不能重写任何子类中的方法。</p>
+<p>-示例-</p>
+<p>public final class MyFinalClass{</p>
+<p>}</p>
+<p>public class MyClass{</p>
+<p>public final String myFinal Method()</p>
+<p>{</p>
+<p>}</p>
+<p>}</p>
+<p>-注释-</p>
+<p>一个类不能同时是abstract又是final。abstract意味着必须扩展类，final意味着不能扩展类。</p>
+<p>一个方法不能同时是abstract又是final。abstract意味着必须重写方法，final意味着不能重写方法。</p>
+<p><strong>finally</strong></p>
+<p>finally关键字用来定义始终在try-catch-finally语句中执行的块。</p>
+<p>finally块通常包含清理代码，用在部分执行try块后恢复正常运行。</p>
+<p>-示例-</p>
+<p>try{</p>
+<p>&lt;可能引发异常的块&gt;</p>
+<p>}</p>
+<p>catch(e){</p>
+<p>&lt;处理异常e的代码&gt;</p>
+<p>}</p>
+<p>finally{</p>
+<p>&lt;有异常或无异常情况下都执行的语句&gt;</p>
+<p>}</p>
+<p>-注释-</p>
+<p>开始和结束标记{和}是finally子句语法的一部分，即使该子句只包含一个语句，也不能省略这两个标记。</p>
+<p>每个try块都必须至少有一个catch或finally子句。</p>
+<p>如果执行try块的任何部分，不论是否出现异常，也不论try或catch块是否包含return、continue或break语句，都一定会执行finally块中的代码。</p>
+<p>如果不出现异常，控件将跳过try块，进入finally块。</p>
+<p>如果在执行try块期间出现异常，并且相应的catch块包含break、continue或return语句，控件将首先穿过finally块，之后再执行break、continue或return。</p>
+<p><strong>float</strong></p>
+<p>float是Java原始类型。</p>
+<p>float变量可以存储单精度浮点值。</p>
+<p>-示例-</p>
+<p>float ratio=.01;</p>
+<p>float diameter=6.15;</p>
+<p>float height=1.35E03;//1.35*103或1350.0</p>
+<p>float height=1e-2;//1.0*10-2或0.01</p>
+<p>-注释-</p>
+<p>使用此关键字时应遵循下列规则：</p>
+<p>Java中的浮点文字始终默认为双精度。要指定单精度文字值，应在数值后加上f或F，如0.01f。</p>
+<p>由于浮点数据类型是实际数值的近似值，因此，一般不要对浮点数值进行是否相等的比较。</p>
+<p>Java浮点数值可代表无穷大和NaN（非数值）。Float包装对象类用来定义常量MIN_VALUE、MAX_VALUE、NEGATIVE_INFINITY、POSITIVE_INFINITY和NaN。</p>
+<p><strong>for</strong></p>
+<p>for关键字用于指定一个在每次迭代结束前检查其条件的循环。</p>
+<p>-示例-</p>
+<p>inti;</p>
+<p>for(i=0;i</p>
+<p>}</p>
+<p>-注释-</p>
+<p>for语句的形式为for(initialize;condition;increment)</p>
+<p>控件流进入for语句时，将执行一次initialize语句。</p>
+<p>每次执行循环体之前将计算condition的结果。如果condition为true，则执行循环体。</p>
+<p>每次执行循环体之后，在计算下一个迭代的condition之前，将执行increment语句。</p>
+<p><strong>if</strong></p>
+<p>if关键字指示有条件地执行代码块。条件的计算结果必须是布尔值。</p>
+<p>-示例-</p>
+<p>if(condition){</p>
+<p>}</p>
+<p>if(condition){</p>
+<p>}</p>
+<p>else{</p>
+<p>}</p>
+<p>-注释-</p>
+<p>if语句可以有可选的else子句，该子句包含条件为false时将执行的代码。</p>
+<p>包含boolean操作数的表达式只能包含boolean操作数。</p>
+<p><strong>implements</strong></p>
+<p>implements关键字在class声明中使用，以指示所声明的类提供了在implements关键字后面的名称所指定的接口中所声明的所有方法的实现。</p>
+<p>-示例-</p>
+<p>public class Truck implements IVehicle{</p>
+<p>}</p>
+<p>-注释-</p>
+<p>在上例中，Truck类必须提供在IVehicle接口中所声明的所有方法的实现。</p>
+<p>否则，Truck类将是独立的；它可以声明其他方法和变量，并扩展另一个类。</p>
+<p>一个类可以实现多个接口。</p>
+<p><strong>import</strong></p>
+<p>import关键字使一个包中的一个或所有类在当前Java源文件中可见。可以不使用完全限定的类名来引用导入的类。</p>
+<p>-示例-</p>
+<p>importjava.io.File;</p>
+<p>importjava.net.*;</p>
+<p>-注释-</p>
+<p>当多个包包含同名的类时，许多Java程序员只使用特定的import语句（没有“*”）来避免不确定性。</p>
+<p><strong>instanceof</strong></p>
+<p>instanceof关键字用来确定对象所属的类。</p>
+<p>-示例-</p>
+<p>if(node instanceof TreeNode){</p>
+<p>}</p>
+<p>-注释-</p>
+<p>在上例中，如果node是TreeNode类的实例，或者是TreeNode的子类的实例，则instanceof表达式的值将为true。</p>
+<p><strong>int</strong></p>
+<p>int是Java原始类型。</p>
+<p>int变量可以存储32位的整数值。</p>
+<p>-示例-</p>
+<p>int number=5;</p>
+<p>int octal Number=0377;</p>
+<p>int hex Number=0xff;</p>
+<p>-注释-</p>
+<p>Integer类是int原始类型的包装对象类。它定义代表此类型的值的范围的MIN_VALUE和MAX_VALUE常量。</p>
+<p>Java中的所有整数值都是32位的int值，除非值后面有l或L（如235L），这表示该值应解释为long。</p>
+<p><strong>interface</strong></p>
+<p>interface关键字用来声明新的Java接口，接口是方法的集合。</p>
+<p>接口是Java语言的一项强大功能。任何类都可声明它实现一个或多个接口，这意味着它实现了在这些接口中所定义的所有方法。</p>
+<p>-示例-</p>
+<p>public interface IPolygon{</p>
+<p>public float getArea();</p>
+<p>public int getNumberOfSides();</p>
+<p>public int getCircumference();</p>
+<p>}</p>
+<p>-注释-</p>
+<p>实现了接口的任何类都必须提供在该接口中的所有方法的实现。</p>
+<p>一个类可以实现多个接口。</p>
+<p><strong>long</strong></p>
+<p>long是Java原始类型。</p>
+<p>long变量可以存储64位的带符号整数。</p>
+<p>-示例-</p>
+<p>longnumber=5;</p>
+<p>longanotherNumber=34590L;</p>
+<p>longoctalNumber=0377;</p>
+<p>longhexNumber=0xffl;</p>
+<p>-注释-</p>
+<p>Long类是long原始类型的包装对象类。它定义代表此类型的值的范围的MIN_VALUE和MAX_VALUE常量。</p>
+<p>Java中的所有整数值都是32位的int值，除非值后面有l或L（如235L），这表示该值应解释为long。</p>
+<p><strong>native</strong></p>
+<p>native关键字可以应用于方法，以指示该方法是用Java以外的语言实现的。</p>
+<p>-示例-</p>
+<p>native String getProcessorType();</p>
+<p>-注释-</p>
+<p>Native方法不在此文档的讨论范围内。</p>
+<p><strong>new</strong></p>
+<p>new关键字用于创建类的新实例。</p>
+<p>-示例-</p>
+<p>String sName=new String();</p>
+<p>Float fVal=new Float(0.15);</p>
+<p>-注释-</p>
+<p>new关键字后面的参数必须是类名，并且类名的后面必须是一组构造方法参数（必须带括号）。</p>
+<p>参数集合必须与类的构造方法的签名匹配。</p>
+<p>=左侧的变量的类型必须与要实例化的类或接口具有赋值兼容关系。</p>
+<p><strong>null</strong></p>
+<p>null是Java的保留字，表示无值。</p>
+<p>-示例-</p>
+<p>Integeri;</p>
+<p>i=null;</p>
+<p>Strings;</p>
+<p>if(s!=null){</p>
+<p>}</p>
+<p>-注释-</p>
+<p>将null赋给非原始变量相当于释放该变量先前所引用的对象。</p>
+<p>不能将null赋给原始类型（byte、short、int、long、char、float、double、boolean）变量。</p>
+<p><strong>package</strong></p>
+<p>package关键字指定在Java源文件中声明的类所驻留的Java包。</p>
+<p>-示例-</p>
+<p>package com.mycompany;</p>
+<p>public class MyClass{</p>
+<p>}</p>
+<p>-注释-</p>
+<p>package语句（如果出现）必须是Java源文件中的第一个非-注释-性文本。</p>
+<p>在上面的-示例-中，MyClass类的完全限定类名是com.mycompany.MyClass。</p>
+<p>如果Java源文件不包含package语句，在该文件中定义的类将位于“默认包”中。请注意，不能从非默认包中的类引用默认包中的类。</p>
+<p><strong>private</strong></p>
+<p>private关键字是访问控制修饰符，可以应用于类、方法或字段（在类中声明的变量）。</p>
+<p>-示例-</p>
+<p>public class MyPublicClass{</p>
+<p>private class MyPrivateClass{</p>
+<p>}</p>
+<p>private int i;</p>
+<p>private String myMethod(){</p>
+<p>}</p>
+<p>}</p>
+<p>-注释-</p>
+<p>只能在声明private（内部）类、方法或字段的类中引用这些类、方法或字段。在类的外部或者对于子类而言，它们是不可见的。</p>
+<p>所有类成员的默认访问范围都是package访问，也就是说，除非存在特定的访问控制修饰符，否则，可以从同一个包中的任何类访问类成员。</p>
+<p><strong>protected</strong></p>
+<p>protected关键字是可以应用于类、方法或字段（在类中声明的变量）的访问控制修饰符。</p>
+<p>-示例-</p>
+<p>public class MyPublicClass{</p>
+<p>protected class MyPrivateClass{</p>
+<p>}</p>
+<p>protected int i;</p>
+<p>protected StringmyMethod(){</p>
+<p>}</p>
+<p>}</p>
+<p>-注释-</p>
+<p>可以在声明protected类、方法或字段的类、同一个包中的其他任何类以及任何子类（无论子类是在哪个包中声明的）中引用这些类、方法或字段。</p>
+<p>所有类成员的默认访问范围都是package访问，也就是说，除非存在特定的访问控制修饰符，否则，可以从同一个包中的任何类访问类成员。</p>
+<p><strong>public</strong></p>
+<p>public关键字是可以应用于类、方法或字段（在类中声明的变量）的访问控制修饰符。</p>
+<p>-示例-</p>
+<p>public class MyPublicClass{</p>
+<p>public class MyPrivateClass{</p>
+<p>}</p>
+<p>publicinti;</p>
+<p>public String myMethod(){</p>
+<p>}</p>
+<p>}</p>
+<p>-注释-</p>
+<p>可能只会在其他任何类或包中引用public类、方法或字段。</p>
+<p>所有类成员的默认访问范围都是package访问，也就是说，除非存在特定的访问控制修饰符，否则，可以从同一个包中的任何类访问类成员。</p>
+<p><strong>return</strong></p>
+<p>return关键字会导致方法返回到调用它的方法，从而传递与返回方法的返回类型匹配的值。</p>
+<p>-示例-</p>
+<p>public void myVoidMethod(){</p>
+<p>return;</p>
+<p>}</p>
+<p>public String myStringMethod(){</p>
+<p>Strings=”myresponse”;</p>
+<p>returns;</p>
+<p>}</p>
+<p>public int myIntMethod(){</p>
+<p>inti=5;</p>
+<p>return(i);</p>
+<p>}</p>
+<p>-注释-</p>
+<p>如果方法具有非void的返回类型，return语句必须具有相同或兼容类型的参数。</p>
+<p>返回值两侧的括号是可选的。</p>
+<p><strong>short</strong></p>
+<p>short是Java原始类型。</p>
+<p>short变量可以存储16位带符号的整数。</p>
+<p>-示例-</p>
+<p>short number=5;</p>
+<p>short octalNumber=0077;</p>
+<p>short hexNumber=0xff;</p>
+<p>-注释-</p>
+<p>Short类是short原始类型的包装对象类。它定义代表此类型的值的范围的MIN_VALUE和MAX_VALUE常量。</p>
+<p>Java中的所有整数值都是32位的int值，除非值后面有l或L（如235L），这表示该值应解释为long。</p>
+<p><strong>static</strong></p>
+<p>static关键字可以应用于内部类（在另一个类中定义的类）、方法或字段（类的成员变量）。</p>
+<p>-示例-</p>
+<p>public class MyPublicClass{</p>
+<p>public final static int MAX_OBJECTS=100;</p>
+<p>static int_numObjects=0;</p>
+<p>static class MyStaticClass{</p>
+<p>}</p>
+<p>static int getNumObjects(){</p>
+<p>}</p>
+<p>}</p>
+<p>-注释-</p>
+<p>通常，static关键字意味着应用它的实体在声明该实体的类的任何特定实例外部可用。</p>
+<p>static（内部）类可以被其他类实例化和引用（即使它是顶级类）。在上面的-示例-中，另一个类中的代码可以实例化MyStaticClass类，方法是用包含它的类名来限定其名称，如MyClass.MyStaticClass。</p>
+<p>static字段（类的成员变量）在类的所有实例中只存在一次。</p>
+<p>可以从类的外部调用static方法，而不用首先实例化该类。这样的引用始终包括类名作为方法调用的限定符。在上面的示例中，MyClass类外部的代码以MyClass.getNumObjects()的形式调用getNumObjects()static方法。</p>
+<p>模式：</p>
+<p>publicfinalstaticvarName=;</p>
+<p>通常用于声明可以在类的外部使用的类常量。在引用这样的类常量时需要用类名加以限定。在上面的-示例-中，另一个类可以用MyClass.MAX_OBJECTS形式来引用MAX_OBJECTS常量。</p>
+<p><strong>super</strong></p>
+<p>super关键字用于引用使用该关键字的类的超类。</p>
+<p>-示例-</p>
+<p>public class MyClass{</p>
+<p>public MyClass(Stringarg){</p>
+<p>super(arg);</p>
+<p>}</p>
+<p>public String myStringMethod(){</p>
+<p>return super.other String Method();</p>
+<p>}</p>
+<p>}</p>
+<p>-注释-</p>
+<p>作为独立语句出现的super表示调用超类的构造方法。</p>
+<p>super.()表示调用超类的方法。只有在如下情况中才需要采用这种用法：要调用在该类中被重写的方法，以便指定应当调用在超类中的该方法。</p>
+<p><strong>switch</strong></p>
+<p>switch语句用于基于某个表达式选择执行多个代码块中的某一个。</p>
+<p>-示例-</p>
+<p>intarg=;</p>
+<p>switch(arg){</p>
+<p>case1:</p>
+<p>break;</p>
+<p>case2:</p>
+<p>break;</p>
+<p>default:</p>
+<p>break;</p>
+<p>}</p>
+<p>chararg=;</p>
+<p>switch(arg){</p>
+<p>case’y’:</p>
+<p>case’Y’:</p>
+<p>break;</p>
+<p>case’n’:</p>
+<p>case’N’:</p>
+<p>break;</p>
+<p>default:</p>
+<p>break;</p>
+<p>}</p>
+<p>-注释-</p>
+<p>switch条件的计算结果必须等于byte、char、short或int，jdk1.7后可以是String类型。</p>
+<p>case块没有隐式结束点。break语句通常在每个case块末尾使用，用于退出switch语句。</p>
+<p>如果没有break语句，执行流将进入所有后面的case和/或default块。</p>
+<p><strong>synchronized</strong></p>
+<p>synchronized关键字可以应用于方法或语句块，并为一次只应由一个线程执行的关键代码段提供保护。</p>
+<p>-示例-</p>
+<p><code>public class MyClass&#123;</code></p>
+<p><code>public synchronized static String mySyncStaticMethod()&#123;</code></p>
+<p><code>&#125;</code></p>
+<p><code>public synchronized String mySyncMethod()&#123;</code></p>
+<p><code>&#125;</code></p>
+<p><code>&#125;</code></p>
+<p><code>public class MyOtherClass&#123;</code></p>
+<p><code>Object someObj;</code></p>
+<p><code>public String myMethod()&#123;</code></p>
+<p><code>synchronized(someObj)&#123;</code></p>
+<p><code>&#125;</code></p>
+<p><code>&#125;</code></p>
+<p><code>&#125;</code></p>
+<p>-注释-</p>
+<p>synchronized关键字可防止代码的关键代码段一次被多个线程执行。</p>
+<p>如果应用于静态方法（如上例中的MySyncStaticMethod），那么，当该方法一次由一个线程执行时，整个类将被锁定。</p>
+<p>如果应用于实例方法（如上例中的MySyncMethod），那么，当该方法一次由一个线程访问时，该实例将被锁定。</p>
+<p>如果应用于对象或数组，当关联的代码块一次由一个线程执行时，对象或数组将被锁定。</p>
+<p><strong>this</strong></p>
+<p>-示例-</p>
+<p><code>public class MyClass&#123;</code></p>
+<p><code>int number;</code></p>
+<p><code>public MyClass(intnumber)&#123;</code></p>
+<p><code>this.number=number;</code></p>
+<p><code>&#125;</code></p>
+<p><code>&#125;</code></p>
+<p>当引用可能不明确时，可以使用this关键字来引用当前的实例。</p>
+<p>在上面的-示例-中，构造方法参数number与类的成员变量同名。this.number明确表示MyClass的该实例的number成员变量。</p>
+<p><strong>throw</strong></p>
+<p>throw关键字用于引发异常。</p>
+<p>-示例-</p>
+<p><code>import java.io.IOException;</code></p>
+<p><code>public class MyClass&#123;</code></p>
+<p><code>public method readFile(Stringfilename)throws IO Exception&#123;</code></p>
+<p><code>if(error)&#123;</code></p>
+<p><code>throw new IO Exception(&quot;errorreadingfile&quot;);</code></p>
+<p><code>&#125;</code></p>
+<p><code>&#125;</code></p>
+<p><code>&#125;</code></p>
+<p>-注释-</p>
+<p>throw语句将java.lang.Throwable作为参数。Throwable在调用栈中向上传播，直到被适当的catch块捕获。</p>
+<p>引发非RuntimeException异常的任何方法还必须在方法声明中使用throws修饰符来声明它引发的异常。</p>
+<p><strong>throws</strong></p>
+<p>throws关键字可以应用于方法，以便指出方法引发了特定类型的异常。</p>
+<p>-示例-</p>
+<p><code>import java.io.IOException;</code></p>
+<p><code>public class MyClass&#123;</code></p>
+<p><code>public method readFile(Stringfilename)throwsIOException&#123;</code></p>
+<p><code>if(error)&#123;</code></p>
+<p><code>throw new IO Exception(&quot;errorreadingfile&quot;);</code></p>
+<p><code>&#125;</code></p>
+<p><code>&#125;</code></p>
+<p><code>&#125;</code></p>
+<p>-注释-</p>
+<p>throws关键字将逗号分隔的java.lang.Throwables列表作为参数。</p>
+<p>引发非RuntimeException异常的任何方法还必须在方法声明中使用throws修饰符来声明它引发的异常。</p>
+<p>要在try-catch块中包含带throws子句的方法的调用，必须提供该方法的调用者。</p>
+<p><strong>transient</strong></p>
+<p>transient关键字可以应用于类的成员变量，以便指出该成员变量不应在包含它的类实例已序列化时被序列化。</p>
+<p>-示例-</p>
+<p><code>public class MyClass&#123;</code></p>
+<p><code>private transient String password;</code></p>
+<p><code>&#125;</code></p>
+<p><strong>try</strong></p>
+<p>try关键字用于包含可能引发异常的语句块。</p>
+<p>-示例-</p>
+<p><code>try&#123;</code></p>
+<p><code>&lt;可能引发异常的块&gt;</code></p>
+<p><code>&#125;</code></p>
+<p><code>catch(e)&#123;</code></p>
+<p><code>&lt;处理异常e的代码&gt;</code></p>
+<p><code>&#125;</code></p>
+<p><code>try&#123;</code></p>
+<p><code>&lt;可能引发其他异常的块&gt;</code></p>
+<p><code>&#125;</code></p>
+<p><code>catch(FooExceptione)&#123;</code></p>
+<p><code>&lt;处理FooExceptione的代码&gt;</code></p>
+<p><code>&#125;</code></p>
+<p><code>catch(BarExceptione)&#123;</code></p>
+<p><code>&lt;处理BarExceptione的代码&gt;</code></p>
+<p><code>&#125;</code></p>
+<p><code>try&#123;</code></p>
+<p><code>&lt;可能引发异常的块&gt;</code></p>
+<p><code>&#125;</code></p>
+<p><code>catch(e)&#123;</code></p>
+<p><code>&lt;处理异常e的代码&gt;</code></p>
+<p><code>&#125;</code></p>
+<p><code>finally&#123;</code></p>
+<p><code>&lt;有异常或无异常情况下都执行的语句&gt;</code></p>
+<p><code>&#125;</code></p>
+<p>-注释-</p>
+<p>每个try块都必须至少有一个catch或finally子句。</p>
+<p>如果某个特定异常类未被任何catch子句处理，该异常将沿着调用栈递归地传播到下一个封闭try块。如果任何封闭try块都未捕获到异常，Java解释器将退出，并显示错误消息和堆栈跟踪信息。</p>
+<p><strong>true</strong></p>
+<p>true关键字表示boolean变量的两个合法值中的一个。</p>
+<p>-示例-</p>
+<p>boolean is Complete=true;</p>
+<p><strong>void</strong></p>
+<p>void关键字表示null类型。</p>
+<p>-示例-</p>
+<p>public class MyClass{</p>
+<p>public void do Something(){</p>
+<p>return;</p>
+<p>}</p>
+<p>}</p>
+<p>-注释-</p>
+<p>void可以用作方法的返回类型，以指示该方法不返回值。</p>
+<p><strong>volatile</strong></p>
+<p>volatile关键字用于表示可以被多个线程异步修改的成员变量。</p>
+<p>注意：volatile关键字在许多Java虚拟机中都没有实现。</p>
+<p>-示例-</p>
+<p><code>public class MyClass&#123;</code></p>
+<p><code>volatile int shared Value;</code></p>
+<p><code>&#125;</code></p>
+<p>-注释-</p>
+<p>volatile的目标用途是为了确保所有线程所看到的指定变量的值都是相同的。</p>
+<p><strong>while</strong></p>
+<p>while关键字用于指定一个只要条件为真就会重复的循环。</p>
+<p>-示例-</p>
+<p><code>while(!found)&#123;</code></p>
+<p><code>&#125;</code></p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/Java/about">
+            Sirchw
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://wuhefei.github.io/Java/2021/07/31/JAVA%E5%85%B3%E9%94%AE%E5%AD%97%E6%95%B4%E7%90%86/">
+            https://wuhefei.github.io/Java/2021/07/31/JAVA%E5%85%B3%E9%94%AE%E5%AD%97%E6%95%B4%E7%90%86/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/Java/2021/08/02/JAVA%E5%9F%BA%E7%A1%80/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">JAVA基础 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/Java/2021/07/31/JCM%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">JVM内存相关参数配置 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E8%A7%88"><span class="toc-text">一、 关键字总览:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A"><span class="toc-text">二、 详细解释</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-text">1. 访问控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B1%BB%E3%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E5%8F%98%E9%87%8F%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">2. 类、方法和变量修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="toc-text">3. 程序控制语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">4. 错误处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%8C%85%E7%9B%B8%E5%85%B3"><span class="toc-text">5. 包相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-text">6. 基本类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%8F%98%E9%87%8F%E5%BC%95%E7%94%A8"><span class="toc-text">7. 变量引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E4%BF%9D%E7%95%99%E5%AD%97"><span class="toc-text">8. 保留字</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-Java%E5%85%B3%E9%94%AE%E5%AD%97%E6%9B%B4%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="toc-text">三,Java关键字更详细介绍</span></a></li></ol>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">theme-kaze</p>
+<p class="author-description">1+1=2</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/Java/archives">
+    <span>10</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/Java/categories">
+    <span>6</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/Java/tags">
+    <span>15</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E8%A7%88"><span class="toc-text">一、 关键字总览:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A"><span class="toc-text">二、 详细解释</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-text">1. 访问控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B1%BB%E3%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E5%8F%98%E9%87%8F%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">2. 类、方法和变量修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="toc-text">3. 程序控制语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">4. 错误处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%8C%85%E7%9B%B8%E5%85%B3"><span class="toc-text">5. 包相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-text">6. 基本类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%8F%98%E9%87%8F%E5%BC%95%E7%94%A8"><span class="toc-text">7. 变量引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E4%BF%9D%E7%95%99%E5%AD%97"><span class="toc-text">8. 保留字</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-Java%E5%85%B3%E9%94%AE%E5%AD%97%E6%9B%B4%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="toc-text">三,Java关键字更详细介绍</span></a></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/Java/categories/%E7%BA%BF%E7%A8%8B/">
+        <div class="categories-list-item">
+          线程
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E7%AE%97%E6%B3%95/">
+        <div class="categories-list-item">
+          算法
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E9%9D%A2%E8%AF%95/">
+        <div class="categories-list-item">
+          面试
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JVM/">
+        <div class="categories-list-item">
+          JVM
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA-%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA-基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/Java/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" 
+        title="双指针">
+        <div class="tags-list-item">双指针</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JUC/" 
+        title="JUC">
+        <div class="tags-list-item">JUC</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E7%BB%84/" 
+        title="数组">
+        <div class="tags-list-item">数组</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E7%AE%97%E6%B3%95/" 
+        title="算法">
+        <div class="tags-list-item">算法</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%B8%B8%E9%87%8F%E6%B1%A0/" 
+        title="常量池">
+        <div class="tags-list-item">常量池</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%A0%86/" 
+        title="堆">
+        <div class="tags-list-item">堆</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%A0%88/" 
+        title="栈">
+        <div class="tags-list-item">栈</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JAVA%E5%9F%BA%E7%A1%80/" 
+        title="JAVA基础">
+        <div class="tags-list-item">JAVA基础</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/java%E5%9F%BA%E7%A1%80/" 
+        title="java基础">
+        <div class="tags-list-item">java基础</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E9%85%8D%E7%BD%AE/" 
+        title="配置">
+        <div class="tags-list-item">配置</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JVM/" 
+        title="JVM">
+        <div class="tags-list-item">JVM</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E9%9D%A2%E8%AF%95/" 
+        title="面试">
+        <div class="tags-list-item">面试</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81/" 
+        title="轻量级锁">
+        <div class="tags-list-item">轻量级锁</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/java%E9%94%81/" 
+        title="java锁">
+        <div class="tags-list-item">java锁</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" 
+        title="多线程">
+        <div class="tags-list-item">多线程</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E8%A7%88"><span class="toc-text">一、 关键字总览:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A"><span class="toc-text">二、 详细解释</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-text">1. 访问控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B1%BB%E3%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E5%8F%98%E9%87%8F%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">2. 类、方法和变量修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="toc-text">3. 程序控制语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">4. 错误处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%8C%85%E7%9B%B8%E5%85%B3"><span class="toc-text">5. 包相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-text">6. 基本类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%8F%98%E9%87%8F%E5%BC%95%E7%94%A8"><span class="toc-text">7. 变量引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E4%BF%9D%E7%95%99%E5%AD%97"><span class="toc-text">8. 保留字</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-Java%E5%85%B3%E9%94%AE%E5%AD%97%E6%9B%B4%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="toc-text">三,Java关键字更详细介绍</span></a></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-02</div>
+        <a href="/Java/2021/08/02/JAVA%E5%9F%BA%E7%A1%80/"><div class="recent-posts-item-content">JAVA基础</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-31</div>
+        <a href="/Java/2021/07/31/JAVA%E5%85%B3%E9%94%AE%E5%AD%97%E6%95%B4%E7%90%86/"><div class="recent-posts-item-content">JAVA关键字</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-31</div>
+        <a href="/Java/2021/07/31/JCM%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/"><div class="recent-posts-item-content">JVM内存相关参数配置</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-07-31</div>
+        <a href="/Java/2021/07/31/%E8%AE%B0%E5%BD%95%E7%AE%97%E6%B3%95%E7%AC%AC%E4%BA%8C%E5%A4%A9(%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C)/"><div class="recent-posts-item-content">记录算法第一天(四数之和)</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020 -
+          
+          2021
+        </span>
+        &nbsp;
+        <a 
+          href="/Java/" 
+          class="footer-link">
+          theme-kaze demo
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/Java/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/Java/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/Java/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+  </body>
+</html>
