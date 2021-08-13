@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="成长记录">
+  <link 
+    rel="icon" 
+    href="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png">
+  <title>工作流</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="工作流">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://wuhefei.github.io/Java/2021/08/10/%E5%B7%A5%E4%BD%9C%E6%B5%81/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="成长记录">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2021-08-10">
+      <meta 
+        property="og:article:modified_time" 
+        content="2021-08-13">
+      <meta 
+        property="og:article:author" 
+        content="theme-kaze">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="框架">
+        
+          <meta 
+            property="og:article:tag" 
+            content="Springboot">
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/Java/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/Java/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">theme-kaze demo</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/Java/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/Java/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/Java/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/Java/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/Java/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/Java/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      工作流
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-08-10T07:05:06.029Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2021-08-10</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/Java/categories/%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8/" 
+          class="post-meta-link">
+          开发使用
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>4.4k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/Java/tags/%E6%A1%86%E6%9E%B6/" 
+            class="post-meta-link">
+            框架
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/Java/tags/Springboot/" 
+            class="post-meta-link">
+            Springboot
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h2 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h3><p>​    工作流是指“业务过程的部分或整体在计算机应用环境下的自动化。是对工作流程及其各操作步骤之间业务规则的抽象描述</p>
+<p>工作流主要解决的主要问题是：为了实现某个业务目标，利用计算机在多个参与者之间按某种预定规则自动传递文档、信息或者任务。</p>
+<p>工作流概念起源于生产组织和办公自动化领域，是针对日常工作中具有固定程序活动而提出的一个概念，目的是通过将工作分解成定义良好的任务或角色，按照一定的规则和过程来执行这些任务并对其进行监控，达到提高工作效率、更好的控制过程、增强对客户的服务、有效管理业务流程等目的。尽管工作流已经取得了相当的成就，但对工作流的定义还没有能够统一和明确。</p>
+<h3 id="2流程"><a href="#2流程" class="headerlink" title="2流程"></a>2流程</h3><ol>
+<li>定义工作流：包括具体的活动、规则等。</li>
+<li>执行工作流：按照流程定义的规则执行，并由多个参与者进行控制。</li>
+</ol>
+<p>工作流特点<br>采用工作流有以下优点：</p>
+<pre class="highlight"><span class="line">1、提高系统的柔性，适应业务流程的变化 </span><br><span class="line"></span><br><span class="line">2、实现更好的业务过程控制，提高顾客服务质量</span><br><span class="line"></span><br><span class="line">3、降低系统开发和维护成本</span><br></pre>
+
+<p>常见工作流：Activiti、JBPM、OSWorkflow、ActiveBPEL、YAWL等。</p>
+<h3 id="3-工作流引擎"><a href="#3-工作流引擎" class="headerlink" title="3.工作流引擎"></a>3.工作流引擎</h3><p>ProcessEngine对象是Activiti工作的核心。负责生成流程运行时的各种实例及数据、监控和管理流程的运行，其他的类都是由他而来。</p>
+<p><strong>产生方式：</strong></p>
+<p>首先需要先创建<strong>Activiti</strong>配置对象的实例<strong>ProcessEngineConfiguration</strong>，里面主要配置相关数据源参数，支持基于配置文件和注解的创建。</p>
+<p>然后通过<strong>ProcessEngineConfiguration</strong>创建工作流引擎，</p>
+<p>举例如下（这里列举基于spring的SpringProcessEngineConfiguration作为ProcessEngineConfigurationImpl的配置实现）：</p>
+<p><code>ProcessEngine processEngine =  springProcessEngineConfiguration.buildProcessEngine();</code></p>
+<p><strong>ProcessEngine 可以产生RepositoryService、RuntimeService、TaskService等服务类。</strong></p>
+<p>举例如下：</p>
+<p><code>RepositoryService repositoryService =  processEngine.getRepositoryService();</code></p>
+<h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h2><p>​    部署对象，用于部署流程定义文件（bpmn、png等文件），也可对流程进行修改和删除。</p>
+<p>ProcessDefinition <strong>act_re_oricdef表</strong><br>    流程定义类，解析.bpmn后得到的流程定义规则的信息，工作流系统就是按照 定义的规则执行的，通常用于查询部署的流程定义和资源。</p>
+<p>ProcessInstance<br>    ProcessInstance代表流程定义的执行实例。如A请了一天的假，他就必须发出一个流程实例的申请。一个流程实例包括了所有的运行节点。我们可以利用这个对象来了解当前流程实例的进度等信息。</p>
+<p>流程实例就表示一个流程从开始到结束的最大的流程分支，即一个流程中流程实例只有一个。</p>
+<p>Execution<br>    执行对象。Activiti用这个对象去描述流程执行的每一个节点。一个流程中，执行对象可以存在多个，但是流程实例只能有一个。在单线流程中，Execution就是同ProcessInstance，在多线流程中，分线路中每个活动代表Execution。如下图的示例：</p>
+<h2 id="BPMN"><a href="#BPMN" class="headerlink" title="BPMN"></a>BPMN</h2><p>activiti基于BPMN规范引入了很多组件，下面列出一些常用的组件模块。</p>
+<p>start事件<br>首先解释一下事件：事件用于对发生在流程生命周期的事情进行建模。事件总是被形象成一个圆圈。在 BPMN 2.0 中，存在两种主要的事件类型：捕获事件和抛出事件。</p>
+<pre><code>   捕获：流程执行到该事件时，会等待事件触发。事件触发类型由内部图标或 XML 中的类型声明来定义。捕获事件视觉上可以通过里面没有填充的内部图标与抛出事件进行区分（也就是说，图标是白色的）。
+   抛出：流程执行到该事件时，事件就会被触发。该事件触发的类型由内部图标或 XML 中的类型声明来定义。抛出事件视觉上可以通过内部图标与抛出的事件进行区分，抛出事件的图标使用黑色填充。
+</code></pre>
+<p>start 事件表示流程的开始。定义了流程如何被启动的 start 事件类型。start 事件总是捕获型的，start事件通常包括，none start事件和timer start事件。</p>
+<p>none start事件不需要触发器就能发生，一般通过调用 startProcessInstanceByXXX 方法启动流程实例的时候触发。none start 事件被形象化成不带内图标的圆（即，没有触发器类型）。如下图：</p>
+<p>XML表示：</p>
+<startEvent id="start" name="my start event" />
+
+
+<p>timer start 事件用于在给定的时间点创建流程实例。它可以用在只启动一次的流程中，也可以用在特定时间间隔下启动的流程。其图标被形象话为有表的内图标的圆，如下图：</p>
+<p>XML表示(示例为从2017年3月11日12:13开始，流程将启动4次每次间隔5分钟)：</p>
+<startEvent id="theStart">
+<timerEventDefinition>
+<timeCycle>R4/2017-03-11T12:13/PT5M</timeCycle>
+</timerEventDefinition>
+</startEvent>
+end事件
+结束事件表明流程或子流程（执行路径）的结束。结束事件总是抛出型的。这意味着当流程执行到结束事件时，有一个结果会被抛出。结果的类型是以事件的内部黑色图标来表示的。end事件包括None end事件和error end事件。none end即正常结束事件。error end事件当流程执行到error end事件时，会结束当前的执行路径，并抛出 error。Error可以被与之匹配的中间边界error事件捕获。如果没有找到匹配的边界error事件，默认会使用none end事件。如下图是none end事件：
+
+
+
+<p>XML表示：</p>
+<endEvent id="end" name="my end event" />
+顺序流（sequence flow）
+顺序流是两个流程元素的连接器。一个元素在流程执行期间被访问后，流程会沿着该元素所有输出的顺序流继续执行。顺序流上也可带条件一般结合gateway使用。图标如下所示：
+
+
+
+<p>XML表示：</p>
+<sequenceFlow id="flow1" sourceRef="theStart" targetRef="theTask" />
+排他网关（Exclusive Gateway）
+也叫单一网关，用来对流程中的决定进行建模。流程执行到这种gateway时，按照输出流定义的顺序对它们进行计算。条件为 true 的顺序流（或没有设置条件，概念上顺序流上定义为’true’）被选取继续执行流程。
+
+<p>注意：在多个顺序流条件为true 的情况下，XML 中最先定义的那个被选取来继续流程的执行（仅有那个会被选中）。如果没有选取到任何顺序流，就会抛出异常。</p>
+<p>如下图所示：</p>
+<p>XML表示：</p>
+<pre class="highlight"><span class="line"><span class="tag">&lt;<span class="name">exclusiveGateway</span> <span class="attr">id</span>=<span class="string">&quot;exclusiveGw&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Exclusive Gateway&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">&quot;flow2&quot;</span> <span class="attr">sourceRef</span>=<span class="string">&quot;exclusiveGw&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;theTask1&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">conditionExpression</span> <span class="attr">xsi:type</span>=<span class="string">&quot;tFormalExpression&quot;</span>&gt;</span>$&#123;input == 1&#125;<span class="tag">&lt;/<span class="name">conditionExpression</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">&quot;flow3&quot;</span> <span class="attr">sourceRef</span>=<span class="string">&quot;exclusiveGw&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;theTask2&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">conditionExpression</span> <span class="attr">xsi:type</span>=<span class="string">&quot;tFormalExpression&quot;</span>&gt;</span>$&#123;input == 2&#125;<span class="tag">&lt;/<span class="name">conditionExpression</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">&quot;flow4&quot;</span> <span class="attr">sourceRef</span>=<span class="string">&quot;exclusiveGw&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;theTask3&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">conditionExpression</span> <span class="attr">xsi:type</span>=<span class="string">&quot;tFormalExpression&quot;</span>&gt;</span>$&#123;input == 3&#125;<span class="tag">&lt;/<span class="name">conditionExpression</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br></pre>
+
+<p>并行网关（Parallel Gateway）<br>Parallel gateway能拆分出多个执行路径，或多个输入执行路径进行合并，通常先通过拆分的网关拆分成多个并行的顺序流，然后再通过合并网关进行合并：</p>
+<pre><code>拆分（fork）：并行执行所有的输出顺序流，为每一个顺序流创建一个并行执行路径。
+合并（join）：所有到达 parallel gataway 的并发性的执行路径都等待于此，直到每个输入流都执行到。然后，流
+</code></pre>
+<p>程经由 joining gateway 继续向下执行。</p>
+<p>如下图所示：</p>
+<p>上例中，XML表示：</p>
+<pre class="highlight"><span class="line"><span class="tag">&lt;<span class="name">parallelGateway</span> <span class="attr">id</span>=<span class="string">&quot;myParallelGateway&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">startEvent</span> <span class="attr">id</span>=<span class="string">&quot;theStart&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">&quot;flow1&quot;</span> <span class="attr">sourceRef</span>=<span class="string">&quot;theStart&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;fork&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">parallelGateway</span> <span class="attr">id</span>=<span class="string">&quot;fork&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">sourceRef</span>=<span class="string">&quot;fork&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;receivePayment&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">sourceRef</span>=<span class="string">&quot;fork&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;shipOrder&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">&quot;receivePayment&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Receive Payment&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">sourceRef</span>=<span class="string">&quot;receivePayment&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;join&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">&quot;shipOrder&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Ship Order&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">sourceRef</span>=<span class="string">&quot;shipOrder&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;join&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">parallelGateway</span> <span class="attr">id</span>=<span class="string">&quot;join&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">sourceRef</span>=<span class="string">&quot;join&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;archiveOrder&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">&quot;archiveOrder&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Archive Order&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">sourceRef</span>=<span class="string">&quot;archiveOrder&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;theEnd&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">endEvent</span> <span class="attr">id</span>=<span class="string">&quot;theEnd&quot;</span> /&gt;</span></span><br></pre>
+
+<p>用户任务（User Task）<br>用户任务用来对那些需要人参与完成的工作进行建模。当流程执行到这样的用户任务时，会在分配任务的用户或用户组的任务列表中创建新的任务。</p>
+<p>如下图所示：</p>
+<p>XML表示：</p>
+<pre class="highlight"><span class="line"><span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">&quot;inspector_downpayment_approve_task&quot;</span> <span class="attr">name</span>=<span class="string">&quot;包卖付款审核&quot;</span> <span class="attr">activiti:candidateGroups</span>=<span class="string">&quot;inspector_downpayment_approve&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">documentation</span>&gt;</span>包卖付款审核<span class="tag">&lt;/<span class="name">documentation</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">userTask</span>&gt;</span></span><br></pre>
+
+
+
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>ACT_RE_*: ‘RE’表示repository。 这个前缀的表包含了流程定义和流程静态资源 （图片，规则，等等）。</p>
+<p>ACT_RU_*: ‘RU’表示runtime。 这些运行时的表，包含流程实例，任务，变量，异步任务，等运行中的数据。 Activiti只在流程实例执行过程中保存这些数据， 在流程结束时就会删除这些记录。 这样运行时表可以一直很小速度很快。</p>
+<p>ACT_ID_*: ‘ID’表示identity。 这些表包含身份信息，比如用户，组等等。</p>
+<p>ACT_HI_*: ‘HI’表示history。 这些表包含历史数据，比如历史流程实例， 变量，任务等等。</p>
+<p>ACT_GE_*: 通用数据， 用于不同场景下，如存放资源文件。</p>
+<p>表摘要如下：</p>
+<p>表类型    表名    描述<br>ACT_EVT    ACT_EVT_LOG    事件日志表<br>ACT_GE_*    ACT_GE_BYTEARRAY    二进制数据表，存储流程定义相关的部署信息。即流程定义文档的存放地。每部署一次就会增加两条记录，一条是关于bpmn规则文件的，一条是图片的（如果部署时只指定了bpmn一个文件，activiti会在部署时解析bpmn文件内容自动生成流程图）。两个文件都是以二进制形式存储在数据库中<br>ACT_GE_PROPERTY    属性数据表，存储整个流程引擎级别的数据,初始化表结构时，会默认插入三条记录。<br>ACT_HI_*    ACT_HI_ACTINST    历史节点表，存放历史所有完成的活动。<br>ACT_HI_ATTACHMENT    历史附件表<br>ACT_HI_COMMENT    历史意见表<br>ACT_HI_DETAIL    历史详情表，提供历史变量的查询<br>ACT_HI_IDENTITYLINK    历史流程人员表，存储任务的办理人，包括个人任务和组任务，表示历史任务<br>ACT_HI_PROCINST    历史流程实例表，存储已经执行完的历史流程实例信息<br>ACT_HI_TASKINST    历史流程任务表，存储已经执行完的历史任务信息<br>ACT_HI_VARINST    历史变量表，存储已经执行完的历史流程变量信息<br>ACT_ID_*    ACT_ID_GROUP    用户组信息表<br>ACT_ID_INFO    用户扩展信息表<br>ACT_ID_MEMBERSHIP    用户与用户组关系信息表<br>ACT_ID_USER    用户信息表<br>ACT_RE_*    ACT_RE_DEPLOYMENT    部署信息表，存放流程定义的显示名和部署时间<br>ACT_RE_MODEL    流程设计模型部署表，存储流程定义的数据信息。<br>ACT_RE_PROCDEF    流程定义数据表，存放流程定义的属性信息，部署每个新的流程定义都会在这张表中增加一条记录。注意：当流程定义的key相同的情况下，使用的是版本升级<br>ACT_RU_*    ACT_RU_EVENT_SUBSCR    throwEvent、catchEvent时间监听信息表<br>ACT_RU_EXECUTION    运行时流程执行对象表，当流程达到一个节点中时，会在执行对象表中产生一条数据，当流程结束后，流程实例将会在正在执行的执行对象表中被删除<br>ACT_RU_IDENTITYLINK    运行时流程人员表，主要存储任务的办理人，包括个人任务和组任务，表示正在执行的任务<br>ACT_RU_JOB    运行时定时任务数据表<br>ACT_RU_TASK    运行时任务节点表，当流程达到一个节点中时，会在执行对象表中产生一条数据，如果当前节点是用户任务节点，这时也会在用户任务节点表中增加一条记录，当流程结束后，流程实例将会在正在执行的任务节点表中被删除<br>ACT_RU_VARIABLE    运行时流程变量数据表，设置流程变量的时候，向act_ru_variable这个表添加数据</p>
+<h3 id="流程的定义、管理、执行和部署"><a href="#流程的定义、管理、执行和部署" class="headerlink" title="流程的定义、管理、执行和部署"></a>流程的定义、管理、执行和部署</h3><p>流程的定义和部署<br>    流程的定义、部署、查询、和删除的代码示例如下：</p>
+<pre class="highlight"><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ProcessEngine processEngine;</span><br><span class="line"><span class="comment">/**部署流程定义*/</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deploy</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String bpmnClassPath = <span class="string">&quot;bpmn/test_process.bpmn20.xml&quot;</span>;</span><br><span class="line">    Deployment deployment = processEngine.getRepositoryService()</span><br><span class="line">            .createDeployment()</span><br><span class="line">            .addClasspathResource(bpmnClassPath)</span><br><span class="line">            .deploy();</span><br><span class="line">    System.out.println(deployment.getId()+<span class="string">&quot;        &quot;</span>+deployment.getName());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**查看流程定义*/</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">queryProcessDefinition</span><span class="params">()</span> throwsException </span>&#123;</span><br><span class="line">	<span class="comment">//获取仓库服务对象,使用版本的升序排列，查询列表</span></span><br><span class="line">	List&lt;ProcessDefinition&gt; pdList = processEngine.getRepositoryService().createProcessDefinitionQuery()</span><br><span class="line">	<span class="comment">//添加查询条件</span></span><br><span class="line">	<span class="comment">//.processDefinitionKey(processDefinitionKey)</span></span><br><span class="line">	<span class="comment">//排序</span></span><br><span class="line">	.orderByProcessDefinitionVersion().asc().list();<span class="comment">//查询的结果集</span></span><br><span class="line">	<span class="comment">//遍历集合，查看内容</span></span><br><span class="line">	<span class="keyword">for</span>(ProcessDefinition pd : pdList) &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;id:&quot;</span> + pd.getId());</span><br><span class="line">		System.out.println(<span class="string">&quot;name:&quot;</span> + pd.getName());</span><br><span class="line">		System.out.println(<span class="string">&quot;key:&quot;</span> + pd.getKey());</span><br><span class="line">		System.out.println(<span class="string">&quot;version:&quot;</span> + pd.getVersion());</span><br><span class="line">		System.out.println(<span class="string">&quot;resourceName:&quot;</span>+pd.getDiagramResourceName());</span><br><span class="line">		System.out.println(<span class="string">&quot;***************************************&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteDeployment</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	<span class="comment">//删除发布信息</span></span><br><span class="line">	String deploymentId = <span class="string">&quot;1&quot;</span>;</span><br><span class="line">	<span class="comment">//获取仓库服务对象</span></span><br><span class="line">	RepositoryService repositoryService = processEngine.getRepositoryService();</span><br><span class="line">	<span class="comment">//普通删除，如果当前规则下有正在执行的流程，则抛异常</span></span><br><span class="line">	<span class="comment">//repositoryService.deleteDeployment(deploymentId);</span></span><br><span class="line">	<span class="comment">//级联删除,会删除和当前规则相关的所有信息，正在执行的信息，也包括历史信息</span></span><br><span class="line">	<span class="comment">//相当于：repositoryService.deleteDeploymentCascade(deploymentId);</span></span><br><span class="line">	repositoryService.deleteDeployment(deploymentId,<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre>
+
+<p>流程实例、任务的执行<br>    启动流程实例、查询流程任务、办理任务的代码示例如下：</p>
+<pre class="highlight"><span class="line">/*启动流程实例*/</span><br><span class="line">@Test</span><br><span class="line">public void startProcess() throws Exception &#123;</span><br><span class="line">	//通过流程定义的key启动流程，会启动版本最高的流程</span><br><span class="line">	ProcessInstance pi = processEngines.getRuntimeService()//获取正在执行的Service</span><br><span class="line">	.startProcessInstanceByKey(&quot;myProcess&quot;);//按照流程定义的key启动流程实例，默认按照最新版本启动</span><br><span class="line">	System.out.println(&quot;pid:&quot; + pi.getId() +&quot;,activitiId:&quot; + pi.getActivitiId()+&quot;,pdId:&quot;+pi.getProcessDefinitionId());</span><br><span class="line">&#125;</span><br><span class="line">/*查看个人任务*/</span><br><span class="line">@Test</span><br><span class="line">public void startProcess() throws Exception &#123;</span><br><span class="line">	//配置查询对象</span><br><span class="line">	String assignee=&quot;张三&quot;;</span><br><span class="line">	//创建任务查询对象，查询个人任务</span><br><span class="line">	List&lt;Task&gt; list = processEngine.getTaskService().createTaskQuery().taskAssignee(assignee)//指定个人任务的办理人查询任务</span><br><span class="line">	.orderByTaskCreateTime().desc()//按照任务创建时间升序排列</span><br><span class="line">	.list();//查询任务的所有记录</span><br><span class="line">	System.out.println(&quot;======================【&quot;+assignee+&quot;】的个人任务列表=================&quot;);</span><br><span class="line">	for(Task task: list) &#123;</span><br><span class="line">		System.out.print(&quot;id:&quot;+task.getId()+&quot;,&quot;);</span><br><span class="line">		System.out.print(&quot;name:&quot;+task.getName()+&quot;,&quot;);</span><br><span class="line">		System.out.print(&quot;createTime:&quot;+task.getCreateTime()+&quot;,&quot;);</span><br><span class="line">		System.out.println(&quot;assignee:&quot;+task.getAssignee());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">/*办理任务*/</span><br><span class="line">@Test</span><br><span class="line">public void complete() throws Exception &#123;</span><br><span class="line">	String taskId = &quot;1102&quot;;</span><br><span class="line">	//完成任务</span><br><span class="line">	processEngine.getTaskService().complete(taskId);//指定任务ID，完成任务</span><br><span class="line">&#125;</span><br></pre>
+
+<p>流程变量<br>流程变量指流程实例中可能存在变化的量，比如请假流程中有请假天数、请假原因等一些参数都为流程变量的范围。如下图所示：</p>
+<pre class="highlight"><span class="line">`<span class="comment">/**设置流程变量*/</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVariables</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//获取执行的Service</span></span><br><span class="line">	TaskService taskService = processEngine.getTaskService();</span><br><span class="line">	<span class="comment">//指定办理人</span></span><br><span class="line">	String assigneeUser = <span class="string">&quot;张三&quot;</span>;</span><br><span class="line">	<span class="comment">//流程实例ID</span></span><br><span class="line">	String processInstanceId = <span class="string">&quot;1701&quot;</span>;</span><br><span class="line">	Task task = taskService.createTaskQuery().taskAssignee(assigneeUser)<span class="comment">//指定办理人</span></span><br><span class="line">	.processInstanceId(processInstanceId)<span class="comment">//指定流程实例ID</span></span><br><span class="line">	.singleResult();</span><br><span class="line">	<span class="comment">/**一：变量中存放基本数据类型*/</span></span><br><span class="line">	<span class="comment">//taskService.setVariable(task.getId(), &quot;请假人&quot;,&quot;李四&quot;);//使用流程变量的名称和流程变量的值设置流程变量，一次只能设置一个值</span></span><br><span class="line">	<span class="comment">//taskService.setVariable(task.getId(), &quot;请假天数&quot;,3);</span></span><br><span class="line">	<span class="comment">//taskService.setVariable(task.getId(), &quot;请假日期&quot;,new Date());</span></span><br><span class="line">	<span class="comment">/**二：变量中存放javabean对象，前提：让javabean对象实现implements</span></span><br><span class="line"><span class="comment">	java.io.Serializable*/</span>`</span><br><span class="line">	`Person p = <span class="keyword">new</span> Person();`</span><br><span class="line">	`p.setId(<span class="number">1L</span>);`</span><br><span class="line">	`p.setName(<span class="string">&quot;王五&quot;</span>);`</span><br><span class="line">	`taskService.setVariable(task.getId(), <span class="string">&quot;人员信息&quot;</span>,p);`</span><br><span class="line">	`<span class="comment">/**三：也可设置多个参数`</span></span><br><span class="line"><span class="comment">	`taskService.setVariables(taskId, variablesMap);`</span></span><br><span class="line"><span class="comment">`&#125;`</span></span><br></pre>
+
+<p>用户管理<br>主要包括创建用户，创建组，以及建立组和用户的关系。具体用的数据库表包括：</p>
+<p>act_id_group：角色组表</p>
+<p>act_id_user：用户表：</p>
+<p>act_id_membership：用户角色表<br>————————————————</p>
+<h4 id="7-3-11-代码总结-Code-overview"><a href="#7-3-11-代码总结-Code-overview" class="headerlink" title="7.3.11. 代码总结 Code overview"></a>7.3.11. 代码总结 Code overview</h4><pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TenMinuteTutorial</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建Activiti流程引擎 Create Activiti process engine</span></span><br><span class="line">    ProcessEngine processEngine = ProcessEngineConfiguration</span><br><span class="line">      .createStandaloneProcessEngineConfiguration()</span><br><span class="line">      .buildProcessEngine();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取Activiti服务 Get Activiti services</span></span><br><span class="line">    RepositoryService repositoryService = processEngine.getRepositoryService();</span><br><span class="line">    RuntimeService runtimeService = processEngine.getRuntimeService();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 部署流程定义 Deploy the process definition</span></span><br><span class="line">    repositoryService.createDeployment()</span><br><span class="line">      .addClasspathResource(<span class="string">&quot;FinancialReportProcess.bpmn20.xml&quot;</span>)</span><br><span class="line">      .deploy();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 启动流程实例 Start a process instance</span></span><br><span class="line">    String procId = runtimeService.startProcessInstanceByKey(<span class="string">&quot;financialReport&quot;</span>).getId();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取第一个任务 Get the first task</span></span><br><span class="line">    TaskService taskService = processEngine.getTaskService();</span><br><span class="line">    List&lt;Task&gt; tasks = taskService.createTaskQuery().taskCandidateGroup(<span class="string">&quot;accountancy&quot;</span>).list();</span><br><span class="line">    <span class="keyword">for</span> (Task task : tasks) &#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Following task is available for accountancy group: &quot;</span> + task.getName());</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 申领 claim it</span></span><br><span class="line">      taskService.claim(task.getId(), <span class="string">&quot;fozzie&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 验证Fozzie获取了任务 Verify Fozzie can now retrieve the task</span></span><br><span class="line">    tasks = taskService.createTaskQuery().taskAssignee(<span class="string">&quot;fozzie&quot;</span>).list();</span><br><span class="line">    <span class="keyword">for</span> (Task task : tasks) &#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Task for fozzie: &quot;</span> + task.getName());</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 完成任务 Complete the task</span></span><br><span class="line">      taskService.complete(task.getId());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;Number of tasks for fozzie: &quot;</span></span><br><span class="line">            + taskService.createTaskQuery().taskAssignee(<span class="string">&quot;fozzie&quot;</span>).count());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取并申领第二个任务 Retrieve and claim the second task</span></span><br><span class="line">    tasks = taskService.createTaskQuery().taskCandidateGroup(<span class="string">&quot;management&quot;</span>).list();</span><br><span class="line">    <span class="keyword">for</span> (Task task : tasks) &#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Following task is available for management group: &quot;</span> + task.getName());</span><br><span class="line">      taskService.claim(task.getId(), <span class="string">&quot;kermit&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 完成第二个任务并结束流程 Completing the second task ends the process</span></span><br><span class="line">    <span class="keyword">for</span> (Task task : tasks) &#123;</span><br><span class="line">      taskService.complete(task.getId());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 验证流程已经结束 verify that the process is actually finished</span></span><br><span class="line">    HistoryService historyService = processEngine.getHistoryService();</span><br><span class="line">    HistoricProcessInstance historicProcessInstance =</span><br><span class="line">      historyService.createHistoricProcessInstanceQuery().processInstanceId(procId).singleResult();</span><br><span class="line">    System.out.println(<span class="string">&quot;Process instance end time: &quot;</span> + historicProcessInstance.getEndTime());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre>
+
+<p>明天继续定义网关部分</p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/Java/about">
+            Sirchw
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://wuhefei.github.io/Java/2021/08/10/%E5%B7%A5%E4%BD%9C%E6%B5%81/">
+            https://wuhefei.github.io/Java/2021/08/10/%E5%B7%A5%E4%BD%9C%E6%B5%81/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/Java/2021/08/12/%E6%8E%A5%E5%8F%A3%E4%BC%98%E5%8C%96/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">接口优化 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/Java/2021/08/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">栈和队列 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">工作流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%9A%E4%B9%89"><span class="toc-text">1.定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E6%B5%81%E7%A8%8B"><span class="toc-text">2流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%BC%95%E6%93%8E"><span class="toc-text">3.工作流引擎</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deployment"><span class="toc-text">Deployment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BPMN"><span class="toc-text">BPMN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89%E3%80%81%E7%AE%A1%E7%90%86%E3%80%81%E6%89%A7%E8%A1%8C%E5%92%8C%E9%83%A8%E7%BD%B2"><span class="toc-text">流程的定义、管理、执行和部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-11-%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93-Code-overview"><span class="toc-text">7.3.11. 代码总结 Code overview</span></a></li></ol></li></ol></li></ol>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">theme-kaze</p>
+<p class="author-description">1+1=2</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/Java/archives">
+    <span>18</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/Java/categories">
+    <span>9</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/Java/tags">
+    <span>23</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">工作流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%9A%E4%B9%89"><span class="toc-text">1.定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E6%B5%81%E7%A8%8B"><span class="toc-text">2流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%BC%95%E6%93%8E"><span class="toc-text">3.工作流引擎</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deployment"><span class="toc-text">Deployment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BPMN"><span class="toc-text">BPMN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89%E3%80%81%E7%AE%A1%E7%90%86%E3%80%81%E6%89%A7%E8%A1%8C%E5%92%8C%E9%83%A8%E7%BD%B2"><span class="toc-text">流程的定义、管理、执行和部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-11-%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93-Code-overview"><span class="toc-text">7.3.11. 代码总结 Code overview</span></a></li></ol></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/Java/categories/%E7%BA%BF%E7%A8%8B/">
+        <div class="categories-list-item">
+          线程
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E7%AE%97%E6%B3%95/">
+        <div class="categories-list-item">
+          算法
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E9%9D%A2%E8%AF%95/">
+        <div class="categories-list-item">
+          面试
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JVM/">
+        <div class="categories-list-item">
+          JVM
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA-%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA-基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+        <div class="categories-list-item">
+          数据结构
+          <span class="categories-list-item-badge">5</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8/">
+        <div class="categories-list-item">
+          开发使用
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E6%8E%A5%E5%8F%A3/">
+        <div class="categories-list-item">
+          接口
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" 
+        title="数据结构">
+        <div class="tags-list-item">数据结构</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E7%AE%97%E6%B3%95/" 
+        title="算法">
+        <div class="tags-list-item">算法</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E7%BB%84/" 
+        title="数组">
+        <div class="tags-list-item">数组</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" 
+        title="双指针">
+        <div class="tags-list-item">双指针</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JUC/" 
+        title="JUC">
+        <div class="tags-list-item">JUC</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/Spring/" 
+        title="Spring">
+        <div class="tags-list-item">Spring</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%8E%A5%E5%8F%A3/" 
+        title="接口">
+        <div class="tags-list-item">接口</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E9%93%BE%E8%A1%A8/" 
+        title="链表">
+        <div class="tags-list-item">链表</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/" 
+        title="线性表">
+        <div class="tags-list-item">线性表</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/Springboot/" 
+        title="Springboot">
+        <div class="tags-list-item">Springboot</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%A1%86%E6%9E%B6/" 
+        title="框架">
+        <div class="tags-list-item">框架</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" 
+        title="哈希表">
+        <div class="tags-list-item">哈希表</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%B8%B8%E9%87%8F%E6%B1%A0/" 
+        title="常量池">
+        <div class="tags-list-item">常量池</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%A0%86/" 
+        title="堆">
+        <div class="tags-list-item">堆</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%A0%88/" 
+        title="栈">
+        <div class="tags-list-item">栈</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JAVA%E5%9F%BA%E7%A1%80/" 
+        title="JAVA基础">
+        <div class="tags-list-item">JAVA基础</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">工作流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%9A%E4%B9%89"><span class="toc-text">1.定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E6%B5%81%E7%A8%8B"><span class="toc-text">2流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%BC%95%E6%93%8E"><span class="toc-text">3.工作流引擎</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deployment"><span class="toc-text">Deployment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BPMN"><span class="toc-text">BPMN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89%E3%80%81%E7%AE%A1%E7%90%86%E3%80%81%E6%89%A7%E8%A1%8C%E5%92%8C%E9%83%A8%E7%BD%B2"><span class="toc-text">流程的定义、管理、执行和部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-11-%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93-Code-overview"><span class="toc-text">7.3.11. 代码总结 Code overview</span></a></li></ol></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-12</div>
+        <a href="/Java/2021/08/12/%E6%98%AF%E5%90%A6%E6%9C%89%E5%BF%85%E8%A6%81%E6%AF%8F%E4%B8%AA%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9A%E4%B9%89%E4%B8%AAvo/"><div class="recent-posts-item-content">是否有必要每个接口都定义个vo</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-12</div>
+        <a href="/Java/2021/08/12/%E6%8E%A5%E5%8F%A3%E4%BC%98%E5%8C%96/"><div class="recent-posts-item-content">接口优化</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-10</div>
+        <a href="/Java/2021/08/10/%E5%B7%A5%E4%BD%9C%E6%B5%81/"><div class="recent-posts-item-content">工作流</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-05</div>
+        <a href="/Java/2021/08/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/"><div class="recent-posts-item-content">栈和队列</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020 -
+          
+          2021
+        </span>
+        &nbsp;
+        <a 
+          href="/Java/" 
+          class="footer-link">
+          theme-kaze demo
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/Java/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/Java/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/Java/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+  </body>
+</html>

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="成长记录">
+  <link 
+    rel="icon" 
+    href="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png">
+  <title>是否有必要每个接口都定义个vo</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="是否有必要每个接口都定义个vo">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://wuhefei.github.io/Java/2021/08/12/%E6%98%AF%E5%90%A6%E6%9C%89%E5%BF%85%E8%A6%81%E6%AF%8F%E4%B8%AA%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9A%E4%B9%89%E4%B8%AAvo/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="成长记录">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2021-08-12">
+      <meta 
+        property="og:article:modified_time" 
+        content="2021-08-13">
+      <meta 
+        property="og:article:author" 
+        content="theme-kaze">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="接口">
+        
+          <meta 
+            property="og:article:tag" 
+            content="Spring">
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/Java/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/Java/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">theme-kaze demo</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/Java/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/Java/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/Java/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/Java/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/Java/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/Java/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      是否有必要每个接口都定义个vo
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-08-12T06:50:08.173Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2021-08-12</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/Java/categories/%E6%8E%A5%E5%8F%A3/" 
+          class="post-meta-link">
+          接口
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>1.3k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/Java/tags/%E6%8E%A5%E5%8F%A3/" 
+            class="post-meta-link">
+            接口
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/Java/tags/Spring/" 
+            class="post-meta-link">
+            Spring
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h1 id="是否有必要每个接口都定义个vo"><a href="#是否有必要每个接口都定义个vo" class="headerlink" title="是否有必要每个接口都定义个vo"></a>是否有必要每个接口都定义个vo</h1><p>想到一个问题是因为我在刚开始写代码的时候，发现写接口特别费劲可能是我的想法错了，</p>
+<p>首先来认识一下这些java中的概念吧</p>
+<h2 id="1-概念及理解"><a href="#1-概念及理解" class="headerlink" title="1.概念及理解"></a>1.概念及理解</h2><p>PO 数据库一条记录映射成的java对象,po仅仅用于表示数据 没有任何数据操作 遵守java bean规范 拥有getter/setter方法</p>
+<p>BO 表示一个业务对象 包括了业务逻辑，常常封装了对<strong>DAO RPC</strong>等调用，可以进行<strong>PO</strong>与<strong>VO/DTO</strong>之间的转换，通常处于业务层,区别于直接对外提供服务的业务层，BO提供了基本业务单元的基本业务操作 在设计上是属于被服务层业务流程调用的对象 一个业务流程可能需要调用多个BO完成</p>
+<p>VO 表示一个与前端进行交互的JAVA对象  通常遵守 Java Bean 的规范，拥有 getter/setter 方法</p>
+<p>DTO 用于表示一个数据传输对象。DTO 通常用于不同服务或服务不同分层之间的数据传输。DTO 与 VO 概念相似，并且通常情况下字段也基本一致。但 DTO 与 VO 又有一些不同，这个不同主要是设计理念上的，比如 API 服务需要使用的 DTO 就可能与 VO 存在差异。通常遵守 Java Bean 的规范，拥有 getter/setter 方法。</p>
+<p>DAO 用于表示一个数据访问对象。使用 DAO 访问数据库，包括插入、更新、删除、查询等操作，与 PO 一起使用。DAO 一般在持久层，完全封装数据库操作，对外暴露的方法使得上层应用不需要关注数据库相关的任何信息。</p>
+<p>POJO <strong>是</strong> Plain Ordinary Java Object 的缩写，表示一个简单 java 对象。上面说的 PO、VO、DTO 都是典型的 POJO。而 DAO、BO 一般都不是 POJO，只提供一些调用方法。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-bbac0456af84c9feb17b03cdd9501222_720w.jpg?source=1940ef5c" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://pic1.zhimg.com/80/v2-bbac0456af84c9feb17b03cdd9501222_720w.jpg?source=1940ef5c" class="lozad post-image"></p>
+<h2 id="2-工程规约"><a href="#2-工程规约" class="headerlink" title="2.工程规约"></a>2.工程规约</h2><p>  (一)应用分层  </p>
+<ul>
+<li>【推荐】图中默认上层依赖于下层，箭头关系表示可直接依赖，如：开放接口层可以依赖于 Web 层，也可以直接依赖于 Service 层，依此类推： </li>
+<li>开放接口层：可直接封装 Service 方法暴露成 RPC 接口；通过 Web 封装成 http 接口；进行网 关安全控制、流量控制等。</li>
+<li> 终端显示层：各个端的模板渲染并执行显示的层。当前主要是 velocity 渲染，JS 渲染，JSP 渲染，移动端展示等。 </li>
+<li>Web 层：主要是对访问控制进行转发，各类基本参数校验，或者不复用的业务简单处理等。  Service 层：相对具体的业务逻辑服务层。 </li>
+<li>Manager 层：通用业务处理层，它有如下特征：<ol>
+<li> 对第三方平台封装的层，预处理返回结果及转化异常信息；</li>
+<li>  对 Service 层通用能力的下沉，如缓存方案、中间件通用处理；</li>
+<li> 与 DAO 层交互，对多个 DAO 的组合复用。</li>
+</ol>
+</li>
+<li> DAO 层：数据访问层，与底层 MySQL、Oracle、Hbase 进行数据交互。</li>
+<li> 外部接口或第三方平台：包括其它部门 RPC 开放接口，基础平台，其它公司的 HTTP 接口。</li>
+</ul>
+<p>二.【参考】 </p>
+<p>（分层异常处理规约）在 DAO 层，产生的异常类型有很多，无法用细粒度的异常进 行 catch，使用 catch(Exception e)方式，并 throw new DAOException(e)，不需要打印 日志，因为日志在 Manager/Service 层一定需要捕获并打到日志文件中去，如果同台服务器 再打日志，浪费性能和存储。在 Service 层出现异常时，必须记录出错日志到磁盘，尽可能带 上参数信息，相当于保护案发现场。如果 Manager 层与 Service 同机部署，日志方式与 DAO 层处理一致，如果是单独部署，则采用与 Service 一致的处理方式。Web 层绝不应该继续往上 抛异常， 阿里巴巴 Java 开发手册 ——禁止用于商业用途，违者必究—— 30 / 37 因为已经处于顶层，无继续处理异常的方式，如果意识到这个异常将导致页面无法正常渲染， 那么就应该直接跳转到友好错误页面，尽量加上友好的错误提示信息。开放接口层要将异常处 理成错误码和错误信息方式返回。</p>
+<p> 三.【参考】分层领域模型规约： </p>
+<ol>
+<li> DO（Data Object）：与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。 </li>
+<li> DTO（Data Transfer Object）：数据传输对象，Service 和 Manager 向外传输的对象。</li>
+<li> BO（Business Object）：业务对象。可以由 Service 层输出的封装业务逻辑的对象。</li>
+<li> QUERY：数据查询对象，各层接收上层的查询请求。注：超过 2 个参数的查询封装，禁止 使用 Map 类来传输。 </li>
+<li> VO（View Object）：显示层对象，通常是 Web 向模板渲染引擎层传输的对象。</li>
+</ol>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/Java/about">
+            Sirchw
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://wuhefei.github.io/Java/2021/08/12/%E6%98%AF%E5%90%A6%E6%9C%89%E5%BF%85%E8%A6%81%E6%AF%8F%E4%B8%AA%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9A%E4%B9%89%E4%B8%AAvo/">
+            https://wuhefei.github.io/Java/2021/08/12/%E6%98%AF%E5%90%A6%E6%9C%89%E5%BF%85%E8%A6%81%E6%AF%8F%E4%B8%AA%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9A%E4%B9%89%E4%B8%AAvo/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/Java/2021/08/12/%E6%8E%A5%E5%8F%A3%E4%BC%98%E5%8C%96/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">接口优化 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%AF%E5%90%A6%E6%9C%89%E5%BF%85%E8%A6%81%E6%AF%8F%E4%B8%AA%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9A%E4%B9%89%E4%B8%AAvo"><span class="toc-text">是否有必要每个接口都定义个vo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5%E5%8F%8A%E7%90%86%E8%A7%A3"><span class="toc-text">1.概念及理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%B7%A5%E7%A8%8B%E8%A7%84%E7%BA%A6"><span class="toc-text">2.工程规约</span></a></li></ol></li></ol>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">theme-kaze</p>
+<p class="author-description">1+1=2</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/Java/archives">
+    <span>18</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/Java/categories">
+    <span>9</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/Java/tags">
+    <span>23</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%AF%E5%90%A6%E6%9C%89%E5%BF%85%E8%A6%81%E6%AF%8F%E4%B8%AA%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9A%E4%B9%89%E4%B8%AAvo"><span class="toc-text">是否有必要每个接口都定义个vo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5%E5%8F%8A%E7%90%86%E8%A7%A3"><span class="toc-text">1.概念及理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%B7%A5%E7%A8%8B%E8%A7%84%E7%BA%A6"><span class="toc-text">2.工程规约</span></a></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/Java/categories/%E7%BA%BF%E7%A8%8B/">
+        <div class="categories-list-item">
+          线程
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E7%AE%97%E6%B3%95/">
+        <div class="categories-list-item">
+          算法
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E9%9D%A2%E8%AF%95/">
+        <div class="categories-list-item">
+          面试
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JVM/">
+        <div class="categories-list-item">
+          JVM
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA-%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA-基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+        <div class="categories-list-item">
+          数据结构
+          <span class="categories-list-item-badge">5</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8/">
+        <div class="categories-list-item">
+          开发使用
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E6%8E%A5%E5%8F%A3/">
+        <div class="categories-list-item">
+          接口
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/Java/tags/%E7%AE%97%E6%B3%95/" 
+        title="算法">
+        <div class="tags-list-item">算法</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E7%BB%84/" 
+        title="数组">
+        <div class="tags-list-item">数组</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JUC/" 
+        title="JUC">
+        <div class="tags-list-item">JUC</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" 
+        title="多线程">
+        <div class="tags-list-item">多线程</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/java%E9%94%81/" 
+        title="java锁">
+        <div class="tags-list-item">java锁</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81/" 
+        title="轻量级锁">
+        <div class="tags-list-item">轻量级锁</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" 
+        title="双指针">
+        <div class="tags-list-item">双指针</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E9%9D%A2%E8%AF%95/" 
+        title="面试">
+        <div class="tags-list-item">面试</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JVM/" 
+        title="JVM">
+        <div class="tags-list-item">JVM</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E9%85%8D%E7%BD%AE/" 
+        title="配置">
+        <div class="tags-list-item">配置</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/java%E5%9F%BA%E7%A1%80/" 
+        title="java基础">
+        <div class="tags-list-item">java基础</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JAVA%E5%9F%BA%E7%A1%80/" 
+        title="JAVA基础">
+        <div class="tags-list-item">JAVA基础</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%A0%88/" 
+        title="栈">
+        <div class="tags-list-item">栈</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%A0%86/" 
+        title="堆">
+        <div class="tags-list-item">堆</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%B8%B8%E9%87%8F%E6%B1%A0/" 
+        title="常量池">
+        <div class="tags-list-item">常量池</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" 
+        title="数据结构">
+        <div class="tags-list-item">数据结构</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%AF%E5%90%A6%E6%9C%89%E5%BF%85%E8%A6%81%E6%AF%8F%E4%B8%AA%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9A%E4%B9%89%E4%B8%AAvo"><span class="toc-text">是否有必要每个接口都定义个vo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5%E5%8F%8A%E7%90%86%E8%A7%A3"><span class="toc-text">1.概念及理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%B7%A5%E7%A8%8B%E8%A7%84%E7%BA%A6"><span class="toc-text">2.工程规约</span></a></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-12</div>
+        <a href="/Java/2021/08/12/%E6%98%AF%E5%90%A6%E6%9C%89%E5%BF%85%E8%A6%81%E6%AF%8F%E4%B8%AA%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9A%E4%B9%89%E4%B8%AAvo/"><div class="recent-posts-item-content">是否有必要每个接口都定义个vo</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-12</div>
+        <a href="/Java/2021/08/12/%E6%8E%A5%E5%8F%A3%E4%BC%98%E5%8C%96/"><div class="recent-posts-item-content">接口优化</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-10</div>
+        <a href="/Java/2021/08/10/%E5%B7%A5%E4%BD%9C%E6%B5%81/"><div class="recent-posts-item-content">工作流</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-05</div>
+        <a href="/Java/2021/08/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/"><div class="recent-posts-item-content">栈和队列</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020 -
+          
+          2021
+        </span>
+        &nbsp;
+        <a 
+          href="/Java/" 
+          class="footer-link">
+          theme-kaze demo
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/Java/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/Java/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/Java/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+  </body>
+</html>

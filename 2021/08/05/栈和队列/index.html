@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="成长记录">
+  <link 
+    rel="icon" 
+    href="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png">
+  <title>栈和队列</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="栈和队列">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://wuhefei.github.io/Java/2021/08/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="成长记录">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2021-08-05">
+      <meta 
+        property="og:article:modified_time" 
+        content="2021-08-13">
+      <meta 
+        property="og:article:author" 
+        content="theme-kaze">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="算法">
+        
+          <meta 
+            property="og:article:tag" 
+            content="数据结构">
+        
+          <meta 
+            property="og:article:tag" 
+            content="线性表">
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/Java/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/Java/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/Java/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/Java/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="https://paer-oos.oss-cn-beijing.aliyuncs.com/logo-google%20%281%29.png" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">theme-kaze demo</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/Java/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/Java/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/Java/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/Java/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/Java/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/Java/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      栈和队列
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-08-05T08:09:05.769Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2021-08-05</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/Java/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" 
+          class="post-meta-link">
+          数据结构
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>1.1k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/Java/tags/%E7%AE%97%E6%B3%95/" 
+            class="post-meta-link">
+            算法
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/Java/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" 
+            class="post-meta-link">
+            数据结构
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/Java/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/" 
+            class="post-meta-link">
+            线性表
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h1 id="线性表-栈和队列"><a href="#线性表-栈和队列" class="headerlink" title="线性表 - 栈和队列"></a>线性表 - 栈和队列</h1><blockquote>
+<p>数组和链表都是线性存储结构的基础，栈和队列都是线性存储结构的应用。@pdai</p>
+</blockquote>
+<ul>
+<li>线性表 - 栈和队列<ul>
+<li>知识点<ul>
+<li><a href="#%E6%A0%88---lifo">栈 - LIFO</a></li>
+<li><a href="#%E9%98%9F%E5%88%97---fifo">队列 - FIFO</a></li>
+<li><a href="#jdk%E4%B8%AD%E5%AE%9E%E7%8E%B0">JDK中实现</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE">栈和队列相关题目</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0">参考文章</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="¶-知识点"><a href="#¶-知识点" class="headerlink" title="¶ 知识点"></a><a href="#%E7%9F%A5%E8%AF%86%E7%82%B9">¶</a> 知识点</h2><h3 id="¶-栈-LIFO"><a href="#¶-栈-LIFO" class="headerlink" title="¶ 栈 - LIFO"></a><a href="#%E6%A0%88---lifo">¶</a> 栈 - LIFO</h3><p>示意图</p>
+<p><img src="/_images/alg/alg-stack-1.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/_images/alg/alg-stack-1.png" class="lozad post-image"></p>
+<p>实现</p>
+<ul>
+<li>使用数组实现的叫<code>静态栈</code></li>
+<li>使用链表实现的叫<code>动态栈</code></li>
+</ul>
+<h3 id="¶-队列-FIFO"><a href="#¶-队列-FIFO" class="headerlink" title="¶ 队列 - FIFO"></a><a href="#%E9%98%9F%E5%88%97---fifo">¶</a> 队列 - FIFO</h3><p>示意图</p>
+<p><img src="/_images/alg/alg-queue-1.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/_images/alg/alg-queue-1.png" class="lozad post-image"></p>
+<p>实现</p>
+<ul>
+<li>使用数组实现的叫<code>静态队列</code></li>
+<li>使用链表实现的叫<code>动态队列</code></li>
+</ul>
+<h3 id="¶-JDK中实现"><a href="#¶-JDK中实现" class="headerlink" title="¶ JDK中实现"></a><a href="#jdk%E4%B8%AD%E5%AE%9E%E7%8E%B0">¶</a> JDK中实现</h3><p><a href="">《Java - Stack &amp; Queue 源码解析》</a></p>
+<h2 id="¶-栈和队列相关题目"><a href="#¶-栈和队列相关题目" class="headerlink" title="¶ 栈和队列相关题目"></a><a href="#%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE">¶</a> 栈和队列相关题目</h2><p><strong>用栈实现队列</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-queue-using-stacks/description/">232. Implement Queue using Stacks (Easy)  (opens new window)</a></p>
+<p>栈的顺序为后进先出，而队列的顺序为先进先出。使用两个栈实现队列，一个元素需要经过两个栈才能出队列，在经过第一个栈时元素顺序被反转，经过第二个栈时再次被反转，此时就是先进先出顺序。</p>
+<pre class="highlight"><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyQueue</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Stack&lt;Integer&gt; in = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> Stack&lt;Integer&gt; out = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        in.push(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        in2out();</span><br><span class="line">        <span class="keyword">return</span> out.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        in2out();</span><br><span class="line">        <span class="keyword">return</span> out.peek();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">in2out</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (out.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!in.isEmpty()) &#123;</span><br><span class="line">                out.push(in.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> in.isEmpty() &amp;&amp; out.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">      </span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>用队列实现栈</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-stack-using-queues/description/">225. Implement Stack using Queues (Easy)  (opens new window)</a></p>
+<p>在将一个元素 x 插入队列时，为了维护原来的后进先出顺序，需要让 x 插入队列首部。而队列的默认插入顺序是队列尾部，因此在将 x 插入队列尾部之后，需要让除了 x 之外的所有元素出队列，再入队列。</p>
+<pre class="highlight"><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Queue&lt;Integer&gt; queue;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        queue.add(x);</span><br><span class="line">        <span class="keyword">int</span> cnt = queue.size();</span><br><span class="line">        <span class="keyword">while</span> (cnt-- &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            queue.add(queue.poll());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> queue.remove();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> queue.peek();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> queue.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>最小值栈</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/min-stack/description/">155. Min Stack (Easy)  (opens new window)</a></p>
+<pre class="highlight"><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Stack&lt;Integer&gt; dataStack;</span><br><span class="line">    <span class="keyword">private</span> Stack&lt;Integer&gt; minStack;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> min;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MinStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        dataStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        minStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        min = Integer.MAX_VALUE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        dataStack.add(x);</span><br><span class="line">        min = Math.min(min, x);</span><br><span class="line">        minStack.add(min);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        dataStack.pop();</span><br><span class="line">        minStack.pop();</span><br><span class="line">        min = minStack.isEmpty() ? Integer.MAX_VALUE : minStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dataStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> minStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    </span><br></pre>
+
+
+
+
+
+
+
+<p>对于实现最小值队列问题，可以先将队列使用栈来实现，然后就将问题转换为最小值栈，这个问题出现在 编程之美: 3.7。</p>
+<p><strong>用栈实现括号匹配</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-parentheses/description/">20. Valid Parentheses (Easy)  (opens new window)</a></p>
+<pre class="highlight"><span class="line">&quot;()[]&#123;&#125;&quot;</span><br><span class="line"></span><br><span class="line">Output : true</span><br><span class="line"> </span><br><span class="line">    </span><br></pre>
+
+
+
+
+
+
+
+
+
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : s.toCharArray()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="string">&#x27;(&#x27;</span> || c == <span class="string">&#x27;&#123;&#x27;</span> || c == <span class="string">&#x27;[&#x27;</span>) &#123;</span><br><span class="line">            stack.push(c);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (stack.isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">char</span> cStack = stack.pop();</span><br><span class="line">            <span class="keyword">boolean</span> b1 = c == <span class="string">&#x27;)&#x27;</span> &amp;&amp; cStack != <span class="string">&#x27;(&#x27;</span>;</span><br><span class="line">            <span class="keyword">boolean</span> b2 = c == <span class="string">&#x27;]&#x27;</span> &amp;&amp; cStack != <span class="string">&#x27;[&#x27;</span>;</span><br><span class="line">            <span class="keyword">boolean</span> b3 = c == <span class="string">&#x27;&#125;&#x27;</span> &amp;&amp; cStack != <span class="string">&#x27;&#123;&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span> (b1 || b2 || b3) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> stack.isEmpty();</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line">    </span><br></pre>
+
+
+
+<p><strong>数组中元素与下一个比它大的元素之间的距离</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/daily-temperatures/description/">739. Daily Temperatures (Medium)  (opens new window)</a></p>
+<pre class="highlight"><span class="line">Input: [73, 74, 75, 71, 69, 72, 76, 73]</span><br><span class="line">Output: [1, 1, 4, 2, 1, 1, 0, 0]</span><br><span class="line">  </span><br><span class="line">    </span><br><span class="line">    </span><br></pre>
+
+
+
+<p>在遍历数组时用栈把数组中的数存起来，如果当前遍历的数比栈顶元素来的大，说明栈顶元素的下一个比它大的数就是当前元素。</p>
+<pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] temperatures) &#123;</span><br><span class="line">    <span class="keyword">int</span> n = temperatures.length;</span><br><span class="line">    <span class="keyword">int</span>[] dist = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    Stack&lt;Integer&gt; indexs = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> curIndex = <span class="number">0</span>; curIndex &lt; n; curIndex++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (!indexs.isEmpty() &amp;&amp; temperatures[curIndex] &gt; temperatures[indexs.peek()]) &#123;</span><br><span class="line">            <span class="keyword">int</span> preIndex = indexs.pop();</span><br><span class="line">            dist[preIndex] = curIndex - preIndex;</span><br><span class="line">        &#125;</span><br><span class="line">        indexs.add(curIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dist;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">        <span class="meta">@pdai</span>: 代码已经复制到剪贴板</span><br><span class="line">    </span><br></pre>
+
+<p><strong>循环数组中比当前元素大的下一个元素</strong></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/next-greater-element-ii/description/">503. Next Greater Element II (Medium)  (opens new window)</a></p>
+<pre class="highlight"><span class="line">Input: [1,2,1]</span><br><span class="line">Output: [2,-1,2]</span><br><span class="line">Explanation: The first 1<span class="string">&#x27;s next greater number is 2;</span></span><br><span class="line"><span class="string">The number 2 can&#x27;</span>t find next greater number;</span><br><span class="line">The second 1<span class="string">&#x27;s next greater number needs to search circularly, which is also 2.</span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    </span></span><br></pre>
+
+
+
+<p>与 739. Daily Temperatures (Medium) 不同的是，数组是循环数组，并且最后要求的不是距离而是下一个元素。</p>
+<pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] nextGreaterElements(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.length;</span><br><span class="line">    <span class="keyword">int</span>[] next = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    Arrays.fill(next, -<span class="number">1</span>);</span><br><span class="line">    Stack&lt;Integer&gt; pre = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n * <span class="number">2</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> num = nums[i % n];</span><br><span class="line">        <span class="keyword">while</span> (!pre.isEmpty() &amp;&amp; nums[pre.peek()] &lt; num) &#123;</span><br><span class="line">            next[pre.pop()] = num;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; n)&#123;</span><br><span class="line">            pre.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> next;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br></pre>
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/Java/about">
+            Sirchw
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://wuhefei.github.io/Java/2021/08/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/">
+            https://wuhefei.github.io/Java/2021/08/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/Java/2021/08/10/%E5%B7%A5%E4%BD%9C%E6%B5%81/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">工作流 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/Java/2021/08/05/%E7%BA%BF%E6%80%A7%E8%A1%A8(%E6%95%A3%E5%88%97)%20-%20%E5%93%88%E5%B8%8C%E8%A1%A8/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">线性表(散列) - 哈希表 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97"><span class="toc-text">线性表 - 栈和队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%C2%B6-%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text"> 知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%C2%B6-%E6%A0%88-LIFO"><span class="toc-text"> 栈 - LIFO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%C2%B6-%E9%98%9F%E5%88%97-FIFO"><span class="toc-text"> 队列 - FIFO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%C2%B6-JDK%E4%B8%AD%E5%AE%9E%E7%8E%B0"><span class="toc-text"> JDK中实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%C2%B6-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE"><span class="toc-text"> 栈和队列相关题目</span></a></li></ol></li></ol>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://paer-oos.oss-cn-beijing.aliyuncs.com/v2-ce9977b06ef6847a62f849921d618735_720w.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">theme-kaze</p>
+<p class="author-description">1+1=2</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/Java/archives">
+    <span>18</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/Java/categories">
+    <span>9</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/Java/tags">
+    <span>23</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97"><span class="toc-text">线性表 - 栈和队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%C2%B6-%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text"> 知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%C2%B6-%E6%A0%88-LIFO"><span class="toc-text"> 栈 - LIFO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%C2%B6-%E9%98%9F%E5%88%97-FIFO"><span class="toc-text"> 队列 - FIFO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%C2%B6-JDK%E4%B8%AD%E5%AE%9E%E7%8E%B0"><span class="toc-text"> JDK中实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%C2%B6-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE"><span class="toc-text"> 栈和队列相关题目</span></a></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/Java/categories/%E7%BA%BF%E7%A8%8B/">
+        <div class="categories-list-item">
+          线程
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E7%AE%97%E6%B3%95/">
+        <div class="categories-list-item">
+          算法
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E9%9D%A2%E8%AF%95/">
+        <div class="categories-list-item">
+          面试
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JVM/">
+        <div class="categories-list-item">
+          JVM
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA-%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA-基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/JAVA%E5%9F%BA%E7%A1%80/">
+        <div class="categories-list-item">
+          JAVA基础
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+        <div class="categories-list-item">
+          数据结构
+          <span class="categories-list-item-badge">5</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8/">
+        <div class="categories-list-item">
+          开发使用
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/Java/categories/%E6%8E%A5%E5%8F%A3/">
+        <div class="categories-list-item">
+          接口
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" 
+        title="数据结构">
+        <div class="tags-list-item">数据结构</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E7%AE%97%E6%B3%95/" 
+        title="算法">
+        <div class="tags-list-item">算法</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%95%B0%E7%BB%84/" 
+        title="数组">
+        <div class="tags-list-item">数组</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" 
+        title="双指针">
+        <div class="tags-list-item">双指针</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JUC/" 
+        title="JUC">
+        <div class="tags-list-item">JUC</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/Spring/" 
+        title="Spring">
+        <div class="tags-list-item">Spring</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%8E%A5%E5%8F%A3/" 
+        title="接口">
+        <div class="tags-list-item">接口</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E9%93%BE%E8%A1%A8/" 
+        title="链表">
+        <div class="tags-list-item">链表</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/" 
+        title="线性表">
+        <div class="tags-list-item">线性表</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/Springboot/" 
+        title="Springboot">
+        <div class="tags-list-item">Springboot</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%A1%86%E6%9E%B6/" 
+        title="框架">
+        <div class="tags-list-item">框架</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" 
+        title="哈希表">
+        <div class="tags-list-item">哈希表</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%B8%B8%E9%87%8F%E6%B1%A0/" 
+        title="常量池">
+        <div class="tags-list-item">常量池</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E5%A0%86/" 
+        title="堆">
+        <div class="tags-list-item">堆</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/%E6%A0%88/" 
+        title="栈">
+        <div class="tags-list-item">栈</div>
+      </a>
+    
+      <a 
+        href="/Java/tags/JAVA%E5%9F%BA%E7%A1%80/" 
+        title="JAVA基础">
+        <div class="tags-list-item">JAVA基础</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97"><span class="toc-text">线性表 - 栈和队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%C2%B6-%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text"> 知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%C2%B6-%E6%A0%88-LIFO"><span class="toc-text"> 栈 - LIFO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%C2%B6-%E9%98%9F%E5%88%97-FIFO"><span class="toc-text"> 队列 - FIFO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%C2%B6-JDK%E4%B8%AD%E5%AE%9E%E7%8E%B0"><span class="toc-text"> JDK中实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%C2%B6-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE"><span class="toc-text"> 栈和队列相关题目</span></a></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-12</div>
+        <a href="/Java/2021/08/12/%E6%98%AF%E5%90%A6%E6%9C%89%E5%BF%85%E8%A6%81%E6%AF%8F%E4%B8%AA%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9A%E4%B9%89%E4%B8%AAvo/"><div class="recent-posts-item-content">是否有必要每个接口都定义个vo</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-12</div>
+        <a href="/Java/2021/08/12/%E6%8E%A5%E5%8F%A3%E4%BC%98%E5%8C%96/"><div class="recent-posts-item-content">接口优化</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-10</div>
+        <a href="/Java/2021/08/10/%E5%B7%A5%E4%BD%9C%E6%B5%81/"><div class="recent-posts-item-content">工作流</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-08-05</div>
+        <a href="/Java/2021/08/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/"><div class="recent-posts-item-content">栈和队列</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020 -
+          
+          2021
+        </span>
+        &nbsp;
+        <a 
+          href="/Java/" 
+          class="footer-link">
+          theme-kaze demo
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/Java/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/Java/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/Java/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+  </body>
+</html>
